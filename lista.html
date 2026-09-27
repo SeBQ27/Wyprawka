@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#1D3346">
+<title>Wyprawka · lista</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+<style>
+.head{display:flex;flex-direction:column;gap:8px}
+.head p{margin:0}
+.prog{display:flex;align-items:center;gap:10px;font-size:14px;font-variant-numeric:tabular-nums}
+.prog .bar{flex:1;height:8px;border-radius:9px;background:var(--surface-2);overflow:hidden}
+.prog .bar span{display:block;height:100%;background:var(--ok);transition:width .25s}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:2px}
+.tabs a{flex:0 0 auto;text-decoration:none;border:1px solid var(--line);background:var(--surface)}
+section.card{display:flex;flex-direction:column;gap:8px}
+.sec-h{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.sec-h .cnt{font-size:13px;color:var(--ink-2);font-variant-numeric:tabular-nums;white-space:nowrap}
+.now{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;background:var(--accent);color:var(--accent-ink);padding:2px 8px;border-radius:6px;margin-left:8px;vertical-align:middle}
+.tip{font-size:14px;color:var(--ink-2);margin:0}
+ul.items{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.it{display:grid;grid-template-columns:28px 1fr;gap:10px;padding:10px 0;border-top:1px solid var(--line)}
+.it:first-child{border-top:none}
+.it input{width:22px;height:22px;margin:2px 0 0;accent-color:var(--ok)}
+.it .rule{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:var(--surface-2);font-size:13px;font-weight:700;color:var(--ink-2)}
+.it .top-line{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:baseline}
+.it .nm{font-weight:700}
+.it.done .nm{text-decoration:line-through;color:var(--ink-2)}
+.qty{font-size:13px;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.lvl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:2px 6px;border-radius:6px}
+.lvl.must{background:color-mix(in srgb,var(--ok) 18%,transparent);color:var(--ok)}
+.lvl.nice{background:var(--surface-2);color:var(--ink-2)}
+.lvl.situational{background:color-mix(in srgb,var(--cold) 16%,transparent);color:var(--cold)}
+.why{font-size:14px;color:var(--ink-2);margin:4px 0 0}
+.norm{font-size:12px;font-weight:700;color:var(--ink-2);margin-top:4px;font-variant-numeric:tabular-nums}
+.crit{margin:6px 0 0;padding-left:18px;font-size:14px;color:var(--ink-2);display:flex;flex-direction:column;gap:2px}
+.avoid{border-color:color-mix(in srgb,var(--bad) 40%,var(--line))}
+.avoid h2{color:var(--bad)}
+.avoid .it{grid-template-columns:1fr}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><a class="brand" href="./"><i></i>Wyprawka</a><a class="back" href="./">← Start</a></div>
+  <nav class="tabs chips" id="tabs" aria-label="Listy">
+    <a class="chip" href="#wyprawka" data-id="wyprawka">Wyprawka</a>
+    <a class="chip" href="#sen" data-id="sen">Pokój i sen</a>
+    <a class="chip" href="#zabawki" data-id="zabawki">Zabawki</a>
+  </nav>
+  <div class="head">
+    <h1 id="title">…</h1>
+    <p class="muted" id="intro"></p>
+    <div class="prog"><div class="bar"><span id="pbar" style="width:0"></span></div><span id="ptxt">0 / 0</span></div>
+    <div class="chips" id="filters"></div>
+  </div>
+  <div id="list" class="wrap" style="max-width:none"></div>
+  <footer>Treści mają charakter informacyjny i nie zastępują porady pediatry ani położnej.</footer>
+</div>
+<script src="assets/store.js"></script>
+<script>
+(()=>{
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const LV={must:"Niezbędne",nice:"Przydatne",situational:"Wg sytuacji"};
+let D=null, id=null, filter="all";
+const key=(si,ii)=>`${si}.${ii}`;
+
+async function load(){
+  id=(location.hash||"#wyprawka").slice(1);
+  if(!["wyprawka","sen","zabawki"].includes(id))id="wyprawka";
+  document.querySelectorAll("#tabs a").forEach(a=>a.setAttribute("aria-pressed",a.dataset.id===id));
+  try{D=await (await fetch(`data/${id}.json`)).json()}
+  catch(e){$("#title").textContent="Nie udało się wczytać listy";$("#intro").textContent="Otwórz aplikację z adresu serwera (nie z pliku) albo odśwież stronę.";return}
+  document.title=`${D.title} · Wyprawka`;
+  $("#title").textContent=D.title;$("#intro").textContent=D.intro;
+  render();
+  const n=document.querySelector("[data-now]");if(n)n.scrollIntoView({block:"start"});
+}
+function progress(){
+  const c=Store.checks(id);let all=0,done=0;
+  D.sections.forEach((s,si)=>s.items.forEach((it,ii)=>{if(it.kind==="rule")return;all++;if(c[key(si,ii)])done++}));
+  $("#pbar").style.width=(all?done/all*100:0)+"%";$("#ptxt").textContent=`${done} / ${all}`;
+}
+function render(){
+  $("#filters").innerHTML=[["all","Wszystko"],["must","Niezbędne"],["todo","Do kupienia"]].map(([v,n])=>`<button type="button" class="chip" aria-pressed="${v===filter}" data-f="${v}">${n}</button>`).join("");
+  $("#filters").querySelectorAll("button").forEach(b=>b.onclick=()=>{filter=b.dataset.f;render()});
+  const c=Store.checks(id), kid=Store.kid(), age=kid?Store.ageMonths(kid):null;
+  let html=D.sections.map((s,si)=>{
+    const isNow=age!=null&&s.ageFrom!=null&&age>=s.ageFrom&&age<s.ageTo;
+    const items=s.items.map((it,ii)=>({it,k:key(si,ii)})).filter(({it,k})=>
+      filter==="all"||it.kind==="rule"||(filter==="must"&&it.level==="must")||(filter==="todo"&&!c[k]));
+    if(!items.length)return"";
+    const buy=s.items.filter(i=>i.kind!=="rule"), bought=s.items.filter((i,ii)=>i.kind!=="rule"&&c[key(si,ii)]).length;
+    return `<section class="card"${isNow?" data-now":""}><div class="sec-h"><h2>${esc(s.title)}${isNow?`<span class="now">Teraz</span>`:""}</h2>${buy.length?`<span class="cnt">${bought}/${buy.length}</span>`:""}</div>
+      ${s.tip?`<p class="tip">${esc(s.tip)}</p>`:""}
+      <ul class="items">${items.map(({it,k})=>{
+        const rule=it.kind==="rule", done=!!c[k];
+        return `<li class="it${done?" done":""}">${rule?`<span class="rule" aria-hidden="true">!</span>`:`<input type="checkbox" id="c-${k}" data-k="${k}"${done?" checked":""}>`}
+        <div><div class="top-line"><label class="nm"${rule?"":` for="c-${k}"`}>${esc(it.name)}</label>${it.qty?`<span class="qty">${esc(it.qty)}</span>`:""}${!rule&&it.level?`<span class="lvl ${it.level}">${LV[it.level]}</span>`:""}</div>
+        ${it.why?`<p class="why">${esc(it.why)}</p>`:""}
+        ${it.criteria?`<ul class="crit">${it.criteria.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:""}
+        ${it.norm?`<div class="norm">Norma: ${esc(it.norm)}</div>`:""}</div></li>`}).join("")}</ul></section>`;
+  }).join("");
+  if(D.avoid)html+=`<section class="card avoid"><h2>${esc(D.avoid.title)}</h2><ul class="items">${D.avoid.items.map(a=>`<li class="it"><div><div class="nm">${esc(a.name)}</div><p class="why">${esc(a.why)}</p></div></li>`).join("")}</ul></section>`;
+  $("#list").innerHTML=html;
+  $("#list").querySelectorAll("input[data-k]").forEach(x=>x.onchange=()=>{Store.setCheck(id,x.dataset.k,x.checked);x.closest(".it").classList.toggle("done",x.checked);progress();
+    const sec=x.closest("section"),cnt=sec.querySelector(".cnt");if(cnt){const t=sec.querySelectorAll("input[data-k]"),d=[...t].filter(i=>i.checked).length;cnt.textContent=`${d}/${cnt.textContent.split("/")[1]}`}});
+  progress();
+}
+window.addEventListener("hashchange",()=>{filter="all";load();scrollTo(0,0)});
+load();
+})();
+</script>
+</body>
+</html>

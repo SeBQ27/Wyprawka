@@ -1,0 +1,34 @@
+/* Wyprawka — wspólne tokeny i komponenty (spójne z modułem Pogoda / Cieplutko) */
+:root{
+  --bg:#EEF3F1; --surface:#FFFFFF; --surface-2:#E3EBE8; --ink:#1D3346; --ink-2:#4F6272; --line:#CFDAD6;
+  --accent:#F2B42F; --accent-ink:#2A1F00; --cold:#3874A8; --ok:#2F8A5B; --warn:#B7791F; --bad:#B8402F;
+  --shadow:0 1px 2px rgba(29,51,70,.06),0 6px 20px rgba(29,51,70,.07);
+  --display:"Bricolage Grotesque",ui-rounded,"Segoe UI",system-ui,sans-serif;
+  --body:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root{
+  color-scheme:dark;--bg:#0F171D;--surface:#172229;--surface-2:#1F2D36;--ink:#E6EEF1;--ink-2:#9AAFBB;--line:#2A3A44;
+  --cold:#6FA8DB;--ok:#5BC38A;--warn:#E3A948;--bad:#EC7A68;--shadow:none}}
+*{box-sizing:border-box}
+html,body{background:var(--bg);margin:0}
+body{color:var(--ink);font:16px/1.5 var(--body);padding-inline:16px;padding-block:calc(env(safe-area-inset-top,0px) + 12px) calc(env(safe-area-inset-bottom,0px) + 40px)}
+[hidden]{display:none!important}
+.wrap{max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;letter-spacing:-.01em}
+h1{font-size:30px;line-height:1.1}
+h2{font-size:20px}
+a{color:inherit}
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.brand{font-family:var(--display);font-weight:800;font-size:22px;display:flex;align-items:center;gap:8px;text-decoration:none}
+.brand i{width:14px;height:14px;border-radius:50%;background:var(--accent);display:inline-block;box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 30%,transparent)}
+.label{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-2);font-weight:700}
+.muted{color:var(--ink-2)} .small{font-size:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:var(--shadow)}
+button{font:inherit;cursor:pointer;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:10px 14px;font-weight:700}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--cold);outline-offset:2px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{padding:8px 12px;border-radius:999px;font-weight:700;font-size:14px}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.back{font-size:14px;font-weight:700;text-decoration:none;color:var(--ink-2)}
+footer{font-size:12px;color:var(--ink-2);text-align:center}

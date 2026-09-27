@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>body{margin:0}[hidden]{display:none!important}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
+</head>
+<body>
+<title>Pogoda · Wyprawka</title>
+<link rel="manifest" href="../manifest.webmanifest">
+<meta name="theme-color" content="#1D3346">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<style>
+:root{
+  --bg:#EEF3F1; --surface:#FFFFFF; --surface-2:#E3EBE8; --ink:#1D3346; --ink-2:#4F6272; --line:#CFDAD6;
+  --accent:#F2B42F; --accent-ink:#2A1F00; --cold:#3874A8; --warm:#D9653B; --ok:#2F8A5B; --warn:#B7791F; --bad:#B8402F;
+  --shadow:0 1px 2px rgba(29,51,70,.06),0 6px 20px rgba(29,51,70,.07);
+  --display:"Bricolage Grotesque",ui-rounded,"Segoe UI",system-ui,sans-serif;
+  --body:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  color-scheme:dark;--bg:#0F171D;--surface:#172229;--surface-2:#1F2D36;--ink:#E6EEF1;--ink-2:#9AAFBB;--line:#2A3A44;
+  --accent:#F2B42F;--accent-ink:#2A1F00;--cold:#6FA8DB;--warm:#EE8A62;--ok:#5BC38A;--warn:#E3A948;--bad:#EC7A68;--shadow:none}}
+:root[data-theme="dark"]{
+  color-scheme:dark;--bg:#0F171D;--surface:#172229;--surface-2:#1F2D36;--ink:#E6EEF1;--ink-2:#9AAFBB;--line:#2A3A44;
+  --accent:#F2B42F;--accent-ink:#2A1F00;--cold:#6FA8DB;--warm:#EE8A62;--ok:#5BC38A;--warn:#E3A948;--bad:#EC7A68;--shadow:none}
+*{box-sizing:border-box}
+html,body{background:var(--bg)}
+body{color:var(--ink);font:16px/1.5 var(--body);padding-inline:16px;padding-block:12px 40px}
+.wrap{max-width:560px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;letter-spacing:-.01em}
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.brand{font-family:var(--display);font-weight:800;font-size:22px;display:flex;align-items:center;gap:8px}
+.brand i{width:14px;height:14px;border-radius:50%;background:var(--accent);display:inline-block;box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 30%,transparent)}
+.label{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-2);font-weight:700}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:var(--shadow)}
+button,.btn{font:inherit;cursor:pointer;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:10px 14px;font-weight:700}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--cold);outline-offset:2px}
+.primary{background:var(--accent);color:var(--accent-ink);border-color:transparent}
+.ghost{background:transparent}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{padding:8px 12px;border-radius:999px;font-weight:700;font-size:14px}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+input,select{font:inherit;color:var(--ink);background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:10px 12px;width:100%}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.row>*{flex:1 1 140px}
+.muted{color:var(--ink-2)}
+.small{font-size:14px}
+/* weather hero */
+.wx{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;align-items:center}
+.wx .big{font-family:var(--display);font-weight:800;font-size:56px;line-height:1;font-variant-numeric:tabular-nums}
+.wx .place{font-weight:700}
+.stats{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:14px;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.stats b{color:var(--ink)}
+.demo{font-size:13px;background:color-mix(in srgb,var(--accent) 22%,var(--surface));border-radius:10px;padding:8px 10px}
+/* hours */
+.hours{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin}
+.hour{flex:0 0 58px;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 4px;border-radius:12px;font-size:13px;font-variant-numeric:tabular-nums}
+.hour .t{font-weight:700;font-size:15px}
+.hour .p{color:var(--cold);font-size:12px;min-height:16px}
+.hour[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.hour[aria-pressed="true"] .p{color:var(--accent)}
+/* verdict */
+.verdict{display:flex;flex-direction:column;gap:12px;border:none;color:#fff;background:var(--band,#3874A8)}
+.verdict .label{color:rgba(255,255,255,.8)}
+.verdict h2{font-size:28px;line-height:1.1}
+.gauge{position:relative;height:10px;border-radius:99px;background:linear-gradient(90deg,#3B5BA8 0%,#3874A8 20%,#4E9BB3 40%,#6DB08A 58%,#E2B53A 78%,#D9653B 100%)}
+.gauge span{position:absolute;top:50%;width:18px;height:18px;border-radius:50%;background:#fff;border:3px solid #1D3346;transform:translate(-50%,-50%)}
+.gscale{display:flex;justify-content:space-between;font-size:11px;color:rgba(255,255,255,.85);font-variant-numeric:tabular-nums}
+.why{font-size:14px;color:rgba(255,255,255,.92)}
+/* outfit */
+.outfit{display:flex;flex-direction:column}
+.slot{display:grid;grid-template-columns:92px 1fr;gap:12px;padding:12px 0;border-top:1px solid var(--line)}
+.slot:first-child{border-top:none;padding-top:0}
+.slot .k{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-2);font-weight:700;padding-top:3px}
+.slot ol{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px}
+.slot li{display:flex;gap:10px;align-items:flex-start}
+.slot li .n{flex:0 0 24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:700;background:var(--surface-2);color:var(--ink-2);font-variant-numeric:tabular-nums}
+.slot li.opt{color:var(--ink-2)}
+.slot li.opt::after{content:"zapas";font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-left:auto;padding:2px 6px;border-radius:6px;background:var(--surface-2)}
+.alerts{display:flex;flex-direction:column;gap:8px}
+.alert{display:grid;grid-template-columns:6px 1fr;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 14px 12px 0;overflow:hidden}
+.alert::before{content:"";border-radius:0 4px 4px 0;background:var(--c,var(--cold))}
+.alert b{display:block}
+.alert.bad{--c:var(--bad)} .alert.warn{--c:var(--warn)} .alert.ok{--c:var(--ok)} .alert.info{--c:var(--cold)}
+details summary{cursor:pointer;font-weight:700}
+.manual{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.manual label{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--ink-2)}
+/* setup */
+.overlay{position:fixed;inset:0;background:var(--bg);z-index:10;overflow-y:auto;padding-inline:16px;padding-block:calc(env(safe-area-inset-top,0px) + 16px) calc(env(safe-area-inset-bottom,0px) + 24px)}
+.steps{display:flex;gap:6px}
+.steps span{flex:1;height:5px;border-radius:9px;background:var(--line)}
+.steps span.on{background:var(--accent)}
+.setup h1{font-size:30px;line-height:1.1}
+.stack{display:flex;flex-direction:column;gap:12px}
+.opt-list{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.opt-list button{text-align:left;padding:12px;display:flex;flex-direction:column;gap:2px}
+.opt-list button small{font-weight:400;color:var(--ink-2);font-size:13px}
+.opt-list button[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 2px var(--ink)}
+.results{display:flex;flex-direction:column;gap:6px}
+.kids{display:flex;gap:8px;overflow-x:auto}
+footer{font-size:12px;color:var(--ink-2);text-align:center}
+@media (prefers-reduced-motion:no-preference){.verdict,.outfit{transition:background .3s}}
+@media (max-width:380px){.slot{grid-template-columns:1fr;gap:6px}.wx .big{font-size:46px}}
+</style>
+
+<div class="wrap" id="app">
+  <div class="top">
+    <a class="brand" href="../" style="text-decoration:none;color:inherit"><i></i>Wyprawka</a>
+    <button class="ghost small" id="btnSetup" type="button">Ustawienia</button>
+  </div>
+
+  <div class="card row" id="exBanner" hidden><div class="small"><b>Przykładowe dziecko.</b> Ustaw swoje w 3 krokach, a rekomendacja dopasuje się do wieku.</div><button type="button" class="primary" id="exGo" style="flex:0 0 auto">Zacznij</button></div>
+  <div class="kids" id="kids"></div>
+
+  <section class="card stack" aria-label="Pogoda">
+    <div class="wx">
+      <div class="big" id="wxTemp">–</div>
+      <div>
+        <div class="place" id="wxPlace">–</div>
+        <div class="muted small" id="wxDesc">–</div>
+      </div>
+    </div>
+    <div class="stats" id="wxStats"></div>
+    <div class="demo" id="wxDemo" hidden></div>
+    <div>
+      <div class="label" style="margin-bottom:6px">Kiedy wychodzicie?</div>
+      <div class="hours" id="hours"></div>
+    </div>
+    <div class="row">
+      <div>
+        <div class="label" style="margin-bottom:6px">Co robicie</div>
+        <div class="chips" id="acts"></div>
+      </div>
+    </div>
+    <div>
+      <div class="label" style="margin-bottom:6px">Jak długo</div>
+      <div class="chips" id="durs"></div>
+    </div>
+  </section>
+
+  <section class="card verdict" id="verdict" aria-live="polite">
+    <div class="label" id="vLabel">Rekomendacja</div>
+    <h2 id="vTitle">–</h2>
+    <div>
+      <div class="gauge"><span id="gDot" style="left:50%"></span></div>
+      <div class="gscale"><span>−15°</span><span>0°</span><span>10°</span><span>20°</span><span>30°</span></div>
+    </div>
+    <div class="why" id="vWhy"></div>
+  </section>
+
+  <section class="card outfit" id="outfit" aria-label="Co założyć"></section>
+
+  <section class="alerts" id="alerts" aria-label="Wskazówki"></section>
+
+  <details class="card">
+    <summary>Zmień warunki ręcznie</summary>
+    <p class="muted small">Nadpisuje prognozę. Przydatne do sprawdzenia, jak zmieni się ubiór.</p>
+    <div class="manual">
+      <label>Odczuwalna °C<input id="mT" type="number" step="1" inputmode="numeric"></label>
+      <label>Wiatr km/h<input id="mW" type="number" step="1" inputmode="numeric"></label>
+      <label>Szansa opadów %<input id="mP" type="number" step="5" inputmode="numeric"></label>
+      <label>Indeks UV<input id="mU" type="number" step="1" inputmode="numeric"></label>
+      <label>Opad<select id="mK"><option value="none">brak</option><option value="rain">deszcz</option><option value="snow">śnieg</option></select></label>
+      <label>&nbsp;<button type="button" id="mApply" class="primary">Przelicz</button></label>
+    </div>
+    <p><button type="button" id="mReset" class="ghost small">Wróć do prognozy</button></p>
+  </details>
+
+  <footer><a href="../">← Wszystkie moduły</a> · Pogoda: Open-Meteo. Wskazówki mają charakter ogólny. Zawsze sprawdź kark dziecka.</footer>
+</div>
+
+<div class="overlay setup" id="setup" hidden>
+  <div class="wrap">
+    <div class="steps" id="stepBar"><span></span><span></span><span></span></div>
+    <div id="stepBody" class="stack"></div>
+  </div>
+</div>
+
+<script>
+(()=>{
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const LS="cieplutko.v1";
+const load=()=>{try{return JSON.parse(localStorage.getItem(LS))||null}catch(e){return null}};
+const save=()=>{try{localStorage.setItem(LS,JSON.stringify(S))}catch(e){}};
+
+/* ---------- state ---------- */
+const now=new Date();
+const monthsAgo=m=>{const d=new Date(now.getFullYear(),now.getMonth()-m,1);return d.toISOString().slice(0,7)};
+let S=load()||{
+  example:true,
+  kids:[{id:"k1",name:"Maluch",birth:monthsAgo(8),feel:0}],
+  active:"k1",
+  place:{name:"Katowice",lat:50.2649,lon:19.0238},
+  act:"wozek",dur:60,
+};
+let WX=null, startIdx=0, manual=null;
+
+/* ---------- weather ---------- */
+const WMO={0:"Bezchmurnie",1:"Przeważnie słonecznie",2:"Częściowe zachmurzenie",3:"Pochmurno",45:"Mgła",48:"Szadź",51:"Lekka mżawka",53:"Mżawka",55:"Gęsta mżawka",56:"Marznąca mżawka",57:"Marznąca mżawka",61:"Słaby deszcz",63:"Deszcz",65:"Ulewa",66:"Marznący deszcz",67:"Marznący deszcz",71:"Słaby śnieg",73:"Śnieg",75:"Intensywny śnieg",77:"Ziarna śniegu",80:"Przelotny deszcz",81:"Przelotne opady",82:"Gwałtowne opady",85:"Przelotny śnieg",86:"Śnieżyca",95:"Burza",96:"Burza z gradem",99:"Burza z gradem"};
+const kindOf=c=>([71,73,75,77,85,86].includes(c)?"snow":(c>=51&&c<=67)||(c>=80&&c<=82)||c>=95?"rain":"none");
+
+function sampleWeather(){ // realistic autumn day in Silesia, clearly marked as sample
+  const base=new Date();base.setMinutes(0,0,0);
+  const temps=[9,10,11,12,12,11,10,9,8,7,7,6,6,5,5,5,4,4,4,5,6,7,8,9];
+  const hours=temps.map((t,i)=>{const d=new Date(base.getTime()+i*3600e3);const rain=i>=4&&i<=7;
+    return{time:d,t,feels:t-3-(rain?1:0),pp:rain?70:15,precip:rain?0.6:0,code:rain?61:(i<4?2:3),wind:rain?24:14,uv:i<5?2:0}});
+  return{sample:true,cur:{t:9,feels:6,code:2,wind:14},hours};
+}
+async function fetchWeather(p){
+  const u=`https://api.open-meteo.com/v1/forecast?latitude=${p.lat}&longitude=${p.lon}&current=temperature_2m,apparent_temperature,weather_code,wind_speed_10m&hourly=temperature_2m,apparent_temperature,precipitation_probability,precipitation,weather_code,wind_speed_10m,uv_index&timezone=auto&forecast_days=2`;
+  const r=await fetch(u);if(!r.ok)throw new Error("HTTP "+r.status);const j=await r.json();
+  const h=j.hourly, nowH=new Date();nowH.setMinutes(0,0,0);
+  const hours=h.time.map((t,i)=>({time:new Date(t),t:h.temperature_2m[i],feels:h.apparent_temperature[i],pp:h.precipitation_probability[i]??0,precip:h.precipitation[i]??0,code:h.weather_code[i],wind:h.wind_speed_10m[i],uv:h.uv_index[i]??0}))
+    .filter(x=>x.time>=nowH).slice(0,24);
+  return{sample:false,cur:{t:j.current.temperature_2m,feels:j.current.apparent_temperature,code:j.current.weather_code,wind:j.current.wind_speed_10m},hours};
+}
+async function geocode(q){
+  const r=await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(q)}&count=6&language=pl&format=json`);
+  const j=await r.json();return(j.results||[]).map(x=>({name:x.name,sub:[x.admin1,x.country].filter(Boolean).join(", "),lat:x.latitude,lon:x.longitude}));
+}
+async function reverseName(lat,lon){
+  try{const r=await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=pl`);const j=await r.json();return j.city||j.locality||"Twoja lokalizacja"}catch(e){return"Twoja lokalizacja"}
+}
+function gps(){return new Promise((res,rej)=>{if(!navigator.geolocation)return rej(new Error("brak GPS"));navigator.geolocation.getCurrentPosition(p=>res({lat:p.coords.latitude,lon:p.coords.longitude}),rej,{enableHighAccuracy:false,timeout:10000,maximumAge:600000})})}
+
+/* ---------- engine ---------- */
+const ageM=k=>{const [y,m]=k.birth.split("-").map(Number);return Math.max(0,(now.getFullYear()-y)*12+(now.getMonth()+1-m))};
+const ageTxt=m=>m<1?"noworodek":m<24?`${m} mies.`:`${Math.floor(m/12)} ${Math.floor(m/12)<5?"lata":"lat"}${m%12>=6?" i pół":""}`;
+const ACTS={wozek:{n:"Wózek",d:"leży lub siedzi"},nosidlo:{n:"Nosidło",d:"przy rodzicu"},spacer:{n:"Spacer",d:"idzie sam"},plac:{n:"Plac zabaw",d:"biega"}};
+const actsFor=m=>m<12?["wozek","nosidlo"]:["wozek","spacer","plac"];
+
+function windowOf(hours,i,dur){
+  const n=Math.max(1,Math.ceil(dur/60));const w=hours.slice(i,i+n);
+  const kinds=w.map(h=>kindOf(h.code));
+  return{feels:Math.min(...w.map(h=>h.feels)),t:Math.min(...w.map(h=>h.t)),tMax:Math.max(...w.map(h=>h.feels)),
+    wind:Math.max(...w.map(h=>h.wind)),pp:Math.max(...w.map(h=>h.pp)),precip:w.reduce((a,h)=>a+h.precip,0),
+    uv:Math.max(...w.map(h=>h.uv)),kind:kinds.includes("snow")?"snow":kinds.includes("rain")?"rain":"none",start:w[0].time};
+}
+
+const BANDS=[
+ {min:24,key:"hot",name:"Upał",color:"#C4552F"},
+ {min:19,key:"warm",name:"Ciepło",color:"#B98A12"},
+ {min:14,key:"mild",name:"Łagodnie",color:"#3E8A63"},
+ {min:9,key:"cool",name:"Chłodno",color:"#3C8595"},
+ {min:2,key:"cold",name:"Zimno",color:"#3874A8"},
+ {min:-5,key:"frost",name:"Bardzo zimno",color:"#34579A"},
+ {min:-99,key:"severe",name:"Ekstremalnie zimno",color:"#2B3F7A"}];
+
+function recommend(kid,w,act,dur){
+  const m=ageM(kid), infant=m<12, walker=m>=12;
+  let adj=0, why=[];
+  const actAdj={wozek:infant?-3:-2,nosidlo:3,spacer:2,plac:4}[act];
+  adj+=actAdj; why.push(`${ACTS[act].n} ${actAdj>0?"+":""}${actAdj}°`);
+  if(m<3){adj-=1;why.push("noworodek −1°")}
+  if(kid.feel){adj+=kid.feel;why.push(kid.feel<0?`zmarzluch ${kid.feel}°`:`szybko się grzeje +${kid.feel}°`)}
+  if(dur>=90){adj-=1;why.push("długi spacer −1°")}
+  const T=Math.round(w.feels+adj);
+  const band=BANDS.find(b=>T>=b.min);
+  const O={head:[],neck:[],body:[],legs:[],feet:[],hands:[],gear:[]};
+  const L=(slot,txt,opt)=>O[slot].push({txt,opt:!!opt});
+  const wet=w.kind==="rain"||w.pp>=50, snow=w.kind==="snow", windy=w.wind>=25;
+
+  switch(band.key){
+   case"hot":
+    L("body",infant?"Samo body z krótkim rękawem lub bez rękawów (bawełna, len)":"Luźna koszulka z krótkim rękawem (bawełna, len)");
+    L("legs",infant?"Tylko pielucha albo cienkie szorty":"Krótkie spodenki lub przewiewna sukienka");
+    L("feet",walker?"Sandały z zakrytymi palcami":"Boso");
+    L("head","Kapelusz z rondem, jasny, przewiewny");break;
+   case"warm":
+    L("body","Koszulka lub body z krótkim rękawem");
+    L("body","Cienka bluza rozpinana",true);
+    L("legs","Cienkie długie spodnie lub legginsy");
+    L("feet",walker?"Skarpetki i lekkie buty":"Cienkie skarpetki");
+    L("head",w.uv>=3?"Kapelusz lub czapka z daszkiem":(infant?"Cienka czapeczka, tylko przy wietrze":"Bez czapki"),!(w.uv>=3)&&infant);break;
+   case"mild":
+    L("body","Body lub koszulka z długim rękawem");
+    L("body","Cienka bluza lub sweterek");
+    if(windy||wet)L("body","Wiatrówka lub cienka kurtka");else L("body","Cienka kurtka",true);
+    L("legs","Długie spodnie (dresowe, bawełniane)");
+    L("feet",walker?"Skarpetki i pełne buty":"Skarpetki");
+    L("head",infant?"Cienka bawełniana czapka":"Cienka czapka przy wietrze",!infant&&!windy);break;
+   case"cool":
+    L("body","Body lub koszulka z długim rękawem");
+    L("body","Polar lub bluza");
+    L("body","Kurtka przejściowa");
+    L("legs",m<24?"Rajstopki + długie spodnie":"Długie spodnie");
+    L("feet",walker?"Grubsze skarpety i buty przejściowe":"Grubsze skarpety");
+    L("head","Cienka czapka zakrywająca uszy");
+    L("neck","Komin lub chustka",!windy);
+    if(walker)L("hands","Cienkie rękawiczki",true);break;
+   case"cold":
+    L("body","Body lub koszulka z długim rękawem");
+    L("body","Polar lub sweter");
+    L("body",infant?"Kombinezon ocieplany":"Kurtka ocieplana");
+    L("legs",infant?"Rajstopy + spodnie (pod kombinezon)":"Rajstopy + spodnie lub spodnie ocieplane");
+    L("feet",walker?"Ciepłe skarpety i buty ocieplane":"Ciepłe skarpety lub papcie do wózka");
+    L("head","Ciepła czapka na uszy");
+    L("neck","Komin");
+    L("hands",walker?"Rękawiczki":"Łapki niemowlęce");break;
+   case"frost": case"severe":
+    L("body","Bielizna termoaktywna lub body z wełny merino");
+    L("body","Polar lub wełniany sweter");
+    L("body","Kombinezon zimowy");
+    L("legs","Rajstopy wełniane lub legginsy termo (pod kombinezon)");
+    L("feet",walker?"Wełniane skarpety i buty zimowe":"Wełniane skarpety, buciki lub śpiworek zakrywający stopy");
+    L("head",band.key==="severe"?"Kominiarka i zimowa czapka":"Zimowa czapka, ewentualnie kominiarka");
+    L("neck","Komin polarowy");
+    L("hands",walker?"Nieprzemakalne łapki":"Łapki niemowlęce");break;
+  }
+  if(wet&&walker&&act!=="wozek"){L("body","Kurtka przeciwdeszczowa jako wierzchnia warstwa");L("legs","Spodnie przeciwdeszczowe na wierzch");O.feet=[{txt:T<8?"Kalosze z ciepłą wkładką":"Kalosze",opt:false}]}
+  if(snow&&walker){L("legs","Spodnie nieprzemakalne (śnieg)");L("hands","Zapasowa para rękawiczek",true)}
+  if(act==="plac"){L("gear","Zapasowe skarpetki i spodnie",true);if(T>=14&&T<24)L("gear","Bluzę zdejmij po 10 min zabawy, jeśli się grzeje",true)}
+
+  // stroller / carrier gear
+  if(act==="wozek"){
+    L("gear",T>=22?"Bez kocyka. Nie zasłaniaj budki pieluszką, bo w środku robi się gorąco":T>=16?"Cienki kocyk muślinowy":T>=9?"Kocyk lub cienki śpiworek":T>=0?"Śpiwór do wózka":"Zimowy śpiwór do wózka i osłona od wiatru");
+    if(wet||snow)L("gear","Folia przeciwdeszczowa, uchylona dla wentylacji");
+    if(windy&&T<16)L("gear","Budka ustawiona od strony wiatru");
+  }
+  if(act==="nosidlo"){
+    L("gear","Dziecko ubierz o jedną warstwę lżej. Ciepło rodzica grzeje");
+    if(T<14)L("gear","Kurtka lub osłona nosidłowa rodzica, ciepłe skarpety (stopy wystają)");
+  }
+
+  // alerts
+  const A=[];
+  if(band.key==="severe")A.push(["bad","Rozważ krótszy spacer",infant?"Przy tak odczuwalnej temperaturze niemowlę wyjdź maksymalnie na 15–20 minut albo zostańcie w domu.":"Wyjdźcie na 20–30 minut i obserwujcie policzki i nos."]);
+  else if(band.key==="frost")A.push(["warn","Bardzo zimno",`Skróć spacer do 30–40 minut. Na policzki tłusty krem ochronny na zimno (bez wody), 20 minut przed wyjściem.`]);
+  if(w.tMax>=28)A.push(["bad","Upał","Unikaj wyjścia między 11 a 16. Częściej podawaj pierś, mleko lub wodę (wodę od 6. miesiąca). Szukaj cienia."]);
+  if(w.uv>=3){
+    if(m<6)A.push(["warn",`UV ${Math.round(w.uv)}`,"Niemowlę do 6. miesiąca trzymaj w cieniu i chroń ubraniem oraz budką. Kremów z filtrem u tak małych dzieci się unika."]);
+    else A.push(["warn",`UV ${Math.round(w.uv)}`,`Krem z filtrem SPF 50 (mineralny) na odkrytą skórę${w.uv>=6&&walker?", okulary UV400":""}.`]);
+  }
+  if(wet)A.push(["info","Może padać",`Szansa opadów do ${Math.round(w.pp)}%. ${act==="nosidlo"?"Weź parasol lub osłonę przeciwdeszczową na nosidło.":act==="wozek"?"Folia na wózek w koszu.":"Ubranie przeciwdeszczowe już jest na liście."}`]);
+  if(w.wind>=35)A.push(["warn","Silny wiatr",`Porywy do ${Math.round(w.wind)} km/h. Komin, osłona twarzy, unikaj otwartych przestrzeni.`]);
+  if(T<10)A.push(["info","Fotelik samochodowy","Przed zapięciem w foteliku zdejmij kurtkę lub kombinezon. Gruba warstwa luzuje pasy. Okryj dziecko kocem na pasy."]);
+  A.push(["ok","Test karku","Dotknij karku po 10 minutach. Ciepły i suchy: dobrze. Spocony: zdejmij warstwę. Chłodny: dołóż. Zimne dłonie są normalne i niczego nie mówią."]);
+
+  return{T,band,O,A,why,m};
+}
+
+/* ---------- render ---------- */
+function curWeather(){
+  if(manual){const h=WX.hours[startIdx]||WX.hours[0];return{feels:manual.t,t:manual.t,tMax:manual.t,wind:manual.w,pp:manual.p,precip:0,uv:manual.u,kind:manual.k,start:h.time}}
+  return windowOf(WX.hours,startIdx,S.dur);
+}
+const kid=()=>S.kids.find(k=>k.id===S.active)||S.kids[0];
+const hhmm=d=>d.toLocaleTimeString("pl-PL",{hour:"2-digit",minute:"2-digit"});
+const icon=h=>{const k=kindOf(h.code);return k==="snow"?"śnieg":k==="rain"?`${Math.round(h.pp)}%`:h.pp>=30?`${Math.round(h.pp)}%`:""};
+
+function renderKids(){
+  const el=$("#kids");
+  el.innerHTML=S.kids.map(k=>`<button type="button" class="chip" aria-pressed="${k.id===S.active}" data-k="${k.id}">${esc(k.name)} · ${ageTxt(ageM(k))}</button>`).join("")+
+    `<button type="button" class="chip ghost" id="addKid">+ dziecko</button>`;
+  el.querySelectorAll("[data-k]").forEach(b=>b.onclick=()=>{S.active=b.dataset.k;const a=actsFor(ageM(kid()));if(!a.includes(S.act))S.act=a[0];save();render()});
+  $("#addKid").onclick=()=>openSetup(true);
+}
+function renderWeather(){
+  const c=WX.cur;
+  $("#wxTemp").textContent=`${Math.round(c.t)}°`;
+  $("#wxPlace").textContent=S.place.name;
+  $("#wxDesc").textContent=`${WMO[c.code]||"–"} · odczuwalna ${Math.round(c.feels)}°`;
+  $("#wxStats").innerHTML=`<span>Wiatr <b>${Math.round(c.wind)} km/h</b></span><span>Maks. dziś <b>${Math.round(Math.max(...WX.hours.slice(0,12).map(h=>h.t)))}°</b></span><span>Min. <b>${Math.round(Math.min(...WX.hours.slice(0,12).map(h=>h.t)))}°</b></span>`;
+  const d=$("#wxDemo");
+  if(WX.sample){d.hidden=false;d.textContent=WX.err||"Przykładowa prognoza. Po uruchomieniu aplikacji z własnego adresu pobierze się prawdziwa pogoda dla Twojej lokalizacji.";}else d.hidden=true;
+  $("#hours").innerHTML=WX.hours.slice(0,12).map((h,i)=>`<button type="button" class="hour" aria-pressed="${i===startIdx}" data-i="${i}"><span>${i===0?"Teraz":hhmm(h.time)}</span><span class="t">${Math.round(h.feels)}°</span><span class="p">${icon(h)}</span></button>`).join("");
+  $("#hours").querySelectorAll(".hour").forEach(b=>b.onclick=()=>{startIdx=+b.dataset.i;render()});
+  const acts=actsFor(ageM(kid()));
+  $("#acts").innerHTML=acts.map(a=>`<button type="button" class="chip" aria-pressed="${a===S.act}" data-a="${a}">${ACTS[a].n}</button>`).join("");
+  $("#acts").querySelectorAll("[data-a]").forEach(b=>b.onclick=()=>{S.act=b.dataset.a;save();render()});
+  $("#durs").innerHTML=[30,60,90,120].map(v=>`<button type="button" class="chip" aria-pressed="${v===S.dur}" data-d="${v}">${v<60?v+" min":v/60+" h"}</button>`).join("");
+  $("#durs").querySelectorAll("[data-d]").forEach(b=>b.onclick=()=>{S.dur=+b.dataset.d;save();render()});
+}
+function renderRec(){
+  const k=kid(), w=curWeather(), r=recommend(k,w,S.act,S.dur);
+  const v=$("#verdict");v.style.setProperty("--band",r.band.color);
+  const layers=r.O.body.filter(x=>!x.opt).length;
+  $("#vLabel").textContent=`${esc(k.name)} · ${ageTxt(r.m)} · wyjście ${manual?"(ręcznie)":hhmm(w.start)}`;
+  $("#vTitle").textContent=`${r.band.name}: ${layers} ${layers===1?"warstwa":layers<5?"warstwy":"warstw"} na tułów`;
+  const pct=Math.max(0,Math.min(100,(r.T+15)/45*100));$("#gDot").style.left=pct+"%";
+  $("#vWhy").textContent=`Temperatura dla dziecka ${r.T}°. Liczona z najniższej odczuwalnej w czasie spaceru (${Math.round(w.feels)}°) i korekt: ${r.why.join(", ")}.`;
+  const SL=[["head","Głowa"],["neck","Szyja"],["body","Tułów"],["legs","Nogi"],["feet","Stopy"],["hands","Dłonie"],["gear",S.act==="wozek"?"Wózek":S.act==="nosidlo"?"Nosidło":"Do torby"]];
+  $("#outfit").innerHTML=`<div class="label" style="margin-bottom:10px">Co założyć · od skóry na zewnątrz</div>`+SL.filter(([s])=>r.O[s].length).map(([s,n])=>{let c=0;return(
+    `<div class="slot"><div class="k">${n}</div><ol>${r.O[s].map(x=>`<li class="${x.opt?"opt":""}">${s==="body"&&!x.opt?`<span class="n">${++c}</span>`:""}<span>${esc(x.txt)}</span></li>`).join("")}</ol></div>`)}).join("");
+  $("#alerts").innerHTML=r.A.map(([c,t,d])=>`<div class="alert ${c}"><div><b>${esc(t)}</b><span class="small">${esc(d)}</span></div></div>`).join("");
+}
+function render(){$("#exBanner").hidden=!S.example;renderKids();renderWeather();renderRec()}
+
+/* ---------- manual override ---------- */
+$("#mApply").onclick=()=>{manual={t:+$("#mT").value||0,w:+$("#mW").value||0,p:+$("#mP").value||0,u:+$("#mU").value||0,k:$("#mK").value};if(manual.k!=="none"&&manual.p<50)manual.p=80;renderRec()};
+$("#mReset").onclick=()=>{manual=null;renderRec()};
+function fillManual(){const w=windowOf(WX.hours,startIdx,S.dur);$("#mT").value=Math.round(w.feels);$("#mW").value=Math.round(w.wind);$("#mP").value=Math.round(w.pp);$("#mU").value=Math.round(w.uv);$("#mK").value=w.kind}
+
+/* ---------- setup (3 steps) ---------- */
+let step=0, draft=null, addOnly=false;
+function openSetup(add){addOnly=!!add;step=0;const k=add?null:kid();draft={name:add?"":(S.example?"":k.name),birth:add?monthsAgo(6):k.birth,feel:add?0:k.feel,place:{...S.place},act:S.act};$("#setup").hidden=false;renderStep()}
+function renderStep(){
+  const bars=$("#stepBar").children;[...bars].forEach((b,i)=>b.classList.toggle("on",i<=step));
+  const B=$("#stepBody");
+  if(step===0){
+    B.innerHTML=`<div class="label">Krok 1 z 3</div><h1>Kogo ubieramy?</h1>
+    <label class="stack small"><span class="muted">Imię lub przydomek</span><input id="sName" autocomplete="off" placeholder="np. Staś" value="${esc(draft.name)}"></label>
+    <label class="stack small"><span class="muted">Miesiąc urodzenia</span><input id="sBirth" type="month" max="${now.toISOString().slice(0,7)}" value="${draft.birth}"></label>
+    <div class="stack small"><span class="muted">Jak znosi chłód?</span><div class="chips" id="sFeel">
+      ${[[-2,"Zmarzluch"],[0,"Typowo"],[2,"Szybko się poci"]].map(([v,n])=>`<button type="button" class="chip" data-f="${v}" aria-pressed="${draft.feel===v}">${n}</button>`).join("")}</div></div>
+    <div class="row"><button type="button" class="ghost" id="sCancel">Anuluj</button><button type="button" class="primary" id="sNext">Dalej</button></div>`;
+    B.querySelectorAll("[data-f]").forEach(b=>b.onclick=()=>{draft.feel=+b.dataset.f;draft.name=$("#sName").value;draft.birth=$("#sBirth").value||draft.birth;renderStep()});
+    $("#sNext").onclick=()=>{draft.name=$("#sName").value.trim()||"Maluch";draft.birth=$("#sBirth").value||draft.birth;if(addOnly){finish();return}step=1;renderStep()};
+  }else if(step===1){
+    B.innerHTML=`<div class="label">Krok 2 z 3</div><h1>Gdzie spacerujecie?</h1>
+    <button type="button" class="primary" id="sGps">Użyj mojej lokalizacji</button>
+    <div class="muted small" id="sGpsMsg">Obecnie: ${esc(draft.place.name)}</div>
+    <label class="stack small"><span class="muted">albo wpisz miejscowość</span><input id="sCity" placeholder="np. Siemianowice Śląskie" autocomplete="off"></label>
+    <div class="results" id="sRes"></div>
+    <div class="row"><button type="button" class="ghost" id="sBack">Wstecz</button><button type="button" class="primary" id="sNext">Dalej</button></div>`;
+    $("#sGps").onclick=async()=>{const m=$("#sGpsMsg");m.textContent="Szukam lokalizacji…";
+      try{const p=await gps();const name=await reverseName(p.lat,p.lon);draft.place={name,lat:p.lat,lon:p.lon};m.textContent="Obecnie: "+name}
+      catch(e){m.textContent="Nie udało się pobrać lokalizacji. Zezwól na dostęp w przeglądarce albo wpisz miejscowość."}};
+    let t;$("#sCity").oninput=e=>{clearTimeout(t);const q=e.target.value.trim();if(q.length<2){$("#sRes").innerHTML="";return}
+      t=setTimeout(async()=>{try{const rs=await geocode(q);$("#sRes").innerHTML=rs.length?rs.map((r,i)=>`<button type="button" data-i="${i}" style="text-align:left">${esc(r.name)} <span class="muted small">${esc(r.sub)}</span></button>`).join(""):`<span class="muted small">Brak wyników.</span>`;
+        $("#sRes").querySelectorAll("[data-i]").forEach(b=>b.onclick=()=>{draft.place=rs[+b.dataset.i];$("#sGpsMsg").textContent="Obecnie: "+draft.place.name;$("#sRes").innerHTML=""})}
+        catch(err){$("#sRes").innerHTML=`<span class="muted small">Wyszukiwarka miejscowości nie odpowiada. Spróbuj później.</span>`}},350)};
+    $("#sBack").onclick=()=>{step=0;renderStep()};$("#sNext").onclick=()=>{step=2;renderStep()};
+  }else{
+    const acts=actsFor(ageMFromBirth(draft.birth));if(!acts.includes(draft.act))draft.act=acts[0];
+    B.innerHTML=`<div class="label">Krok 3 z 3</div><h1>Jak zwykle wychodzicie?</h1>
+    <div class="opt-list">${acts.map(a=>`<button type="button" data-a="${a}" aria-pressed="${a===draft.act}">${ACTS[a].n}<small>${ACTS[a].d}</small></button>`).join("")}</div>
+    <p class="muted small">Możesz to zmienić przy każdym wyjściu.</p>
+    <div class="row"><button type="button" class="ghost" id="sBack">Wstecz</button><button type="button" class="primary" id="sNext">Gotowe</button></div>`;
+    B.querySelectorAll("[data-a]").forEach(b=>b.onclick=()=>{draft.act=b.dataset.a;renderStep()});
+    $("#sBack").onclick=()=>{step=1;renderStep()};$("#sNext").onclick=finish;
+  }
+  const c=$("#sCancel");if(c)c.onclick=()=>{$("#setup").hidden=true};
+}
+function ageMFromBirth(b){return ageM({birth:b})}
+async function finish(){
+  if(addOnly){const id="k"+Date.now();S.kids.push({id,name:draft.name,birth:draft.birth,feel:draft.feel});S.active=id;}
+  else{
+    if(S.example){S.kids=[{id:"k1",name:draft.name,birth:draft.birth,feel:draft.feel}];S.active="k1";S.example=false}
+    else Object.assign(kid(),{name:draft.name,birth:draft.birth,feel:draft.feel});
+    const moved=draft.place.lat!==S.place.lat||draft.place.lon!==S.place.lon;S.place=draft.place;S.act=draft.act;
+    if(moved)await refresh();
+  }
+  const a=actsFor(ageM(kid()));if(!a.includes(S.act))S.act=a[0];
+  save();$("#setup").hidden=true;render();
+}
+$("#btnSetup").onclick=()=>openSetup(false);$("#exGo").onclick=()=>openSetup(false);
+
+/* ---------- boot ---------- */
+async function refresh(){
+  try{WX=await fetchWeather(S.place)}
+  catch(e){WX=sampleWeather();WX.err="Brak połączenia z serwisem pogodowym w tym podglądzie. Pokazuję przykładową jesienną prognozę. Po wdrożeniu na własny adres aplikacja pobiera prawdziwą pogodę."}
+  startIdx=0;fillManual();
+}
+WX=sampleWeather();render();
+refresh().then(render);
+})();
+</script>
+
+</body>
+</html>

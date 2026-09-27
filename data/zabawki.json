@@ -1,0 +1,80 @@
+{
+  "id": "zabawki",
+  "title": "Polecane zabawki",
+  "intro": "Zabawki dopasowane do etapu rozwoju, od 0 do 6 lat. Mniej zabawek i ich rotacja co 1–2 tygodnie działa lepiej niż pełna skrzynia.",
+  "sections": [
+    {
+      "title": "Bezpieczeństwo zabawek",
+      "tip": "Sprawdzaj to przy każdym zakupie, także z drugiej ręki.",
+      "items": [
+        {"name": "Oznaczenie CE i zgodność z normą PN-EN 71", "level": "must", "kind": "rule"},
+        {"name": "Test rolki po papierze toaletowym: co przez nią przejdzie, nie jest dla dziecka poniżej 3 lat", "level": "must", "kind": "rule"},
+        {"name": "Baterie guzikowe tylko za klapką przykręcaną śrubką", "level": "must", "kind": "rule", "why": "Połknięta bateria guzikowa może w ciągu 2 godzin poważnie uszkodzić przełyk."},
+        {"name": "Silne magnesy tylko dla starszych dzieci", "level": "must", "kind": "rule", "why": "Dwa połknięte magnesy mogą przyciągnąć się przez ściany jelit."},
+        {"name": "Bez długich sznurków i wstążek przy łóżeczku", "level": "must", "kind": "rule"}
+      ]
+    },
+    {
+      "title": "0–3 miesiące", "ageFrom": 0, "ageTo": 3,
+      "items": [
+        {"name": "Karty kontrastowe czarno-białe", "level": "must", "why": "Wzrok noworodka najlepiej widzi mocne kontrasty z odległości 20–30 cm."},
+        {"name": "Mata edukacyjna z pałąkiem", "level": "must", "why": "Czas na brzuszku i sięganie."},
+        {"name": "Lekka grzechotka", "level": "nice"},
+        {"name": "Karuzela nad łóżeczkiem", "level": "nice", "why": "Zdejmij, gdy dziecko zaczyna siadać lub sięgać, zwykle około 5. miesiąca."},
+        {"name": "Bezpieczne lusterko", "level": "nice"}
+      ]
+    },
+    {
+      "title": "3–6 miesięcy", "ageFrom": 3, "ageTo": 6,
+      "items": [
+        {"name": "Gryzaki", "level": "must", "why": "Schłodzone w lodówce, nie zamrożone."},
+        {"name": "Piłka sensoryczna z wypustkami", "level": "must"},
+        {"name": "Książeczki materiałowe lub szeleszczące", "level": "must"},
+        {"name": "Grzechotki różnych kształtów i faktur", "level": "nice"}
+      ]
+    },
+    {
+      "title": "6–12 miesięcy", "ageFrom": 6, "ageTo": 12,
+      "items": [
+        {"name": "Kubeczki do układania i wkładania", "level": "must"},
+        {"name": "Duże klocki miękkie lub drewniane", "level": "must"},
+        {"name": "Prosty sorter kształtów", "level": "nice"},
+        {"name": "Stabilny pchacz (od wstawania, około 9–10 miesięcy)", "level": "nice", "why": "Zamiast chodzika."},
+        {"name": "Zabawki do kąpieli bez otworów", "level": "nice", "why": "W zabawkach z dziurką zbiera się woda i pleśń."},
+        {"name": "Instrumenty: bębenek, marakasy", "level": "nice"}
+      ]
+    },
+    {
+      "title": "1–2 lata", "ageFrom": 12, "ageTo": 24,
+      "items": [
+        {"name": "Książeczki kartonowe", "level": "must"},
+        {"name": "Jeździk lub pchacz", "level": "must"},
+        {"name": "Układanki z uchwytami", "level": "must"},
+        {"name": "Grube kredki świecowe i duże kartki", "level": "nice"},
+        {"name": "Zestaw do piaskownicy", "level": "nice"},
+        {"name": "Duże klocki do łączenia", "level": "nice"}
+      ]
+    },
+    {
+      "title": "2–3 lata", "ageFrom": 24, "ageTo": 36,
+      "items": [
+        {"name": "Rowerek biegowy z kaskiem", "level": "must"},
+        {"name": "Puzzle 4–12 elementów", "level": "must"},
+        {"name": "Zabawki do odgrywania ról: kuchnia, narzędzia, lalka", "level": "must"},
+        {"name": "Ciastolina lub plastelina", "level": "nice"},
+        {"name": "Drewniana kolejka z torami", "level": "nice"}
+      ]
+    },
+    {
+      "title": "3–6 lat", "ageFrom": 36, "ageTo": 72,
+      "items": [
+        {"name": "Klocki konstrukcyjne z mniejszymi elementami (3+)", "level": "must"},
+        {"name": "Proste gry planszowe i karciane", "level": "must"},
+        {"name": "Rower z kółkami lub bez, hulajnoga, kask", "level": "must"},
+        {"name": "Nożyczki dziecięce, klej, farby", "level": "nice"},
+        {"name": "Figurki, lalki, domek", "level": "nice"},
+        {"name": "Proste zestawy eksperymentów", "level": "nice", "why": "Od około 5 lat, z dorosłym."}
+      ]
+    }
+  ]
+}

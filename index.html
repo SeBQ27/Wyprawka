@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#1D3346">
+<title>Wyprawka</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+<style>
+.hero{display:flex;flex-direction:column;gap:6px;padding-block:8px}
+.hero p{margin:0;max-width:52ch}
+.mods{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mod{display:flex;flex-direction:column;gap:6px;text-decoration:none;min-height:150px}
+.mod h2{font-size:19px}
+.mod p{margin:0;font-size:14px;color:var(--ink-2)}
+.mod .go{margin-top:auto;font-size:13px;font-weight:700}
+.mod.feature{grid-column:1/-1;background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.mod.feature p{color:color-mix(in srgb,var(--bg) 80%,transparent)}
+.mod.feature .go{color:var(--accent)}
+.bar{height:6px;border-radius:9px;background:var(--surface-2);overflow:hidden}
+.bar span{display:block;height:100%;background:var(--ok)}
+.kid{display:flex;justify-content:space-between;align-items:center;gap:10px}
+@media (max-width:380px){.mods{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><a class="brand" href="./"><i></i>Wyprawka</a></div>
+
+  <div class="hero">
+    <h1>Wszystko dla malucha w jednym miejscu</h1>
+    <p class="muted">Co kupić przed porodem, jak urządzić pokój i bezpiecznie spać, jakie zabawki na który etap i jak ubrać dziecko na dzisiejszą pogodę.</p>
+  </div>
+
+  <div class="card kid" id="kid" hidden></div>
+
+  <nav class="mods" aria-label="Moduły">
+    <a class="card mod feature" href="pogoda/">
+      <div class="label" style="color:inherit;opacity:.8">Codziennie</div>
+      <h2>Pogoda: jak ubrać dziecko</h2>
+      <p>Lokalizacja i prognoza zamienione na listę warstw od skóry na zewnątrz, dopasowaną do wieku, wózka, nosidła i placu zabaw.</p>
+      <span class="go">Otwórz →</span>
+    </a>
+    <a class="card mod" href="lista.html#wyprawka">
+      <div class="label">Przed porodem</div>
+      <h2>Gotowa wyprawka</h2>
+      <p>Ubranka, sen, kąpiel, karmienie, transport, torba do szpitala.</p>
+      <div class="bar"><span data-p="wyprawka" style="width:0"></span></div>
+      <span class="go" data-t="wyprawka">Otwórz →</span>
+    </a>
+    <a class="card mod" href="lista.html#sen">
+      <div class="label">Pokój</div>
+      <h2>Pokój i sen</h2>
+      <p>Łóżeczko, dostawka, materac, meble, oświetlenie.</p>
+      <div class="bar"><span data-p="sen" style="width:0"></span></div>
+      <span class="go" data-t="sen">Otwórz →</span>
+    </a>
+    <a class="card mod" href="lista.html#zabawki">
+      <div class="label">0–6 lat</div>
+      <h2>Polecane zabawki</h2>
+      <p>Według etapu rozwoju, z zasadami bezpieczeństwa.</p>
+      <div class="bar"><span data-p="zabawki" style="width:0"></span></div>
+      <span class="go" data-t="zabawki">Otwórz →</span>
+    </a>
+    <a class="card mod" href="https://github.com/SeBQ27/wyprawka/blob/main/ROADMAP.md">
+      <div class="label">Wkrótce</div>
+      <h2>Co dalej</h2>
+      <p>Rozszerzanie diety, szczepienia, skoki rozwojowe, lista zakupów z cenami.</p>
+      <span class="go">Plan rozwoju →</span>
+    </a>
+  </nav>
+
+  <footer>Treści mają charakter informacyjny i nie zastępują porady pediatry ani położnej.</footer>
+</div>
+<script src="assets/store.js"></script>
+<script>
+(async()=>{
+  const k=Store.kid();
+  if(k){const el=document.getElementById("kid");el.hidden=false;
+    el.innerHTML=`<div><div class="label">Twoje dziecko</div><b></b> <span class="muted small"></span></div><a class="back" href="pogoda/">Zmień</a>`;
+    el.querySelector("b").textContent=k.name;el.querySelector("span").textContent=Store.ageText(Store.ageMonths(k));}
+  for(const id of ["wyprawka","sen","zabawki"]){
+    try{const d=await (await fetch(`data/${id}.json`)).json();
+      const all=d.sections.flatMap(s=>s.items).filter(i=>i.kind!=="rule").length;
+      const done=Object.values(Store.checks(id)).filter(Boolean).length;
+      document.querySelector(`[data-p="${id}"]`).style.width=Math.min(100,done/all*100)+"%";
+      if(done)document.querySelector(`[data-t="${id}"]`).textContent=`${done} z ${all} odhaczone →`;
+    }catch(e){}
+  }
+})();
+if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});
+</script>
+</body>
+</html>

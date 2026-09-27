@@ -1,0 +1,12 @@
+{
+  "name": "Wyprawka",
+  "short_name": "Wyprawka",
+  "description": "Wyprawka, pokój, zabawki i codzienny ubiór dziecka według pogody.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#EEF3F1",
+  "theme_color": "#1D3346",
+  "lang": "pl",
+  "icons": [{"src": "assets/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable"}]
+}

@@ -1,0 +1,76 @@
+{
+  "id": "sen",
+  "title": "Pokój i sen",
+  "intro": "Meble, materac, dostawka i oświetlenie. Przy każdym elemencie: na co patrzeć w sklepie i jaka norma powinna być na etykiecie.",
+  "sections": [
+    {
+      "title": "Zasady bezpiecznego snu",
+      "tip": "To podstawa, do której dopasowujesz resztę zakupów.",
+      "items": [
+        {"name": "Zawsze na plecach, na płaskiej i twardej powierzchni", "level": "must", "kind": "rule"},
+        {"name": "Puste łóżeczko: bez poduszki, kołdry, maskotek i ochraniaczy", "level": "must", "kind": "rule"},
+        {"name": "Sen w pokoju rodziców, najlepiej przez pierwsze 6 miesięcy", "level": "must", "kind": "rule", "why": "Własne łóżeczko lub dostawka obok łóżka rodziców."},
+        {"name": "Temperatura w pokoju 16–20°C", "level": "must", "kind": "rule", "why": "Przegrzanie jest czynnikiem ryzyka SIDS. Sprawdzaj kark, nie dłonie."},
+        {"name": "Bez dymu tytoniowego w domu i przy dziecku", "level": "must", "kind": "rule"}
+      ]
+    },
+    {
+      "title": "Łóżeczko",
+      "items": [
+        {"name": "Łóżeczko 60×120 cm z regulacją wysokości dna", "level": "must", "norm": "PN-EN 716",
+         "criteria": ["Rozstaw szczebli 4,5–6,5 cm", "Brak ozdobnych wycięć i wystających elementów", "Stabilne, nie chwieje się po złożeniu", "Farba i lakier bezpieczne dla dzieci (oznaczenie na etykiecie)", "Opcja wyjmowanych szczebli przydaje się około 2. roku"]},
+        {"name": "Kołyska lub kosz Mojżesza", "level": "situational", "norm": "PN-EN 1130",
+         "why": "Na pierwsze 3–4 miesiące. Przestaje być bezpieczna, gdy dziecko zaczyna się przewracać."}
+      ]
+    },
+    {
+      "title": "Dostawka do łóżka rodziców",
+      "tip": "Daje bliskość bez spania w jednym łóżku. Kluczowe jest szczelne przyleganie.",
+      "items": [
+        {"name": "Dostawka z pasami mocującymi do ramy łóżka rodziców", "level": "must", "norm": "PN-EN 1130",
+         "criteria": ["Pasy lub zaczepy mocujące do ramy, bez szpary między materacami", "Regulacja wysokości do poziomu materaca rodziców", "Wysoka ścianka od strony rodziców na noc, gdy nie jest przysunięta", "Płaskie dno, bez przechylania", "Sprawdź limit wagi i wieku (zwykle do ok. 6 miesięcy lub do siadania)"]},
+        {"name": "Materac dedykowany do tej dostawki", "level": "must",
+         "why": "Materac z innego łóżeczka zostawia szczeliny przy brzegach."}
+      ]
+    },
+    {
+      "title": "Materac",
+      "items": [
+        {"name": "Materac twardy, płaski, idealnie dopasowany", "level": "must", "norm": "PN-EN 16890",
+         "criteria": ["Szczelina między materacem a ścianką łóżeczka nie szersza niż dwa palce", "Test dłonią: wgniecenie szybko wraca, dłoń się nie zapada", "Nowy, nie po innym dziecku", "Zdejmowany pokrowiec do prania w 60°C", "Oznaczenie OEKO-TEX Standard 100 na pokrowcu", "Nie pianka termoelastyczna (memory) — za miękka dla niemowlęcia"]},
+        {"name": "Ochraniacz nieprzemakalny pod prześcieradło", "level": "nice", "why": "Cienki, dopasowany, bez luźnych brzegów."}
+      ]
+    },
+    {
+      "title": "Meble",
+      "items": [
+        {"name": "Komoda z przewijakiem, przykręcona do ściany", "level": "must", "norm": "PN-EN 12221 (przewijak)",
+         "criteria": ["Kątowniki antyprzewróceniowe — komoda z wysuniętymi szufladami łatwo się przewraca", "Blat przewijaka na wysokości 90–100 cm, przy pasie rodzica", "Przewijak z podniesionymi bokami", "Wszystkie rzeczy do przewijania w zasięgu ręki, żeby nie odchodzić od dziecka"]},
+        {"name": "Fotel lub wygodne miejsce do karmienia z podparciem pleców i rąk", "level": "nice"},
+        {"name": "Półki i obrazki przykręcone i nie nad łóżeczkiem", "level": "must", "kind": "rule"},
+        {"name": "Łóżeczko z dala od okna, grzejnika i sznurków rolet", "level": "must", "kind": "rule", "why": "Sznurki rolet i żaluzji to ryzyko zadzierzgnięcia. Zwiń je wysoko lub zamontuj napinacz."}
+      ]
+    },
+    {
+      "title": "Oświetlenie",
+      "tip": "Nocą światło ma pozwolić przewinąć i nakarmić, ale nie rozbudzić dziecka ani rodzica.",
+      "items": [
+        {"name": "Lampka nocna ciepła i ściemnialna (2700 K lub niżej, najlepiej bursztynowa)", "level": "must",
+         "criteria": ["Regulacja jasności do bardzo niskiego poziomu", "Barwa ciepła lub bursztynowa, bez niebieskiego światła", "Na baterie lub z krótkim kablem poza zasięgiem dziecka", "Nie świeci w oczy leżącego dziecka"]},
+        {"name": "Główne oświetlenie rozproszone, nie punktowe nad przewijakiem", "level": "must",
+         "why": "Dziecko przy przewijaniu leży na plecach i patrzy prosto w sufit."},
+        {"name": "Zasłony lub rolety zaciemniające", "level": "nice", "why": "Ułatwiają drzemki w dzień i sen latem."},
+        {"name": "Projektor gwiazd lub lampka z szumem", "level": "situational", "why": "Opcjonalne. Szum ustaw cicho i z dala od głowy dziecka."}
+      ]
+    },
+    {
+      "title": "Klimat i monitoring",
+      "items": [
+        {"name": "Termometr z higrometrem", "level": "must", "why": "Cel: 16–20°C i wilgotność 40–60%."},
+        {"name": "Nawilżacz powietrza", "level": "situational", "why": "W sezonie grzewczym, gdy wilgotność spada poniżej 40%."},
+        {"name": "Niania elektroniczna", "level": "nice"},
+        {"name": "Monitor oddechu", "level": "situational", "why": "Nie ma dowodów, że zapobiega SIDS. Rozważ przy zaleceniu lekarza."}
+      ]
+    }
+  ]
+}

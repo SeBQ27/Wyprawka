@@ -1,0 +1,92 @@
+{
+  "id": "wyprawka",
+  "title": "Gotowa wyprawka",
+  "intro": "Lista na pierwsze 3 miesiące. Oznaczenia: niezbędne, przydatne, wg sytuacji. Ilości zakładają pranie co 2–3 dni.",
+  "sections": [
+    {
+      "title": "Ubranka (rozmiar 56–62)",
+      "tip": "Rozmiar 56 bywa za mały po 2–4 tygodniach. Kup więcej w 62, a w 56 tylko kilka sztuk. Przed pierwszym założeniem wypierz w łagodnym proszku bez zapachu.",
+      "items": [
+        {"name": "Body z krótkim rękawem", "qty": "5–7", "level": "must"},
+        {"name": "Body z długim rękawem", "qty": "5–7", "level": "must"},
+        {"name": "Pajacyki (najlepiej zapinane z przodu na zatrzaski lub zamek)", "qty": "5–7", "level": "must"},
+        {"name": "Półśpiochy lub spodenki", "qty": "4–5", "level": "must"},
+        {"name": "Skarpetki", "qty": "5–6 par", "level": "must"},
+        {"name": "Cienka bawełniana czapeczka", "qty": "2", "level": "must"},
+        {"name": "Ciepła czapka, kombinezon lub śpiworek do wózka", "qty": "1", "level": "situational", "why": "Zależnie od pory roku. Sezon przejściowy i zimę obsługuje moduł Pogoda."},
+        {"name": "Rękawiczki niedrapki", "qty": "2 pary", "level": "nice"},
+        {"name": "Kaftaniki", "qty": "2–3", "level": "nice"}
+      ]
+    },
+    {
+      "title": "Sen",
+      "tip": "Szczegóły i kryteria wyboru łóżeczka, dostawki i materaca są w module Pokój i sen.",
+      "items": [
+        {"name": "Łóżeczko lub dostawka do łóżka rodziców", "qty": "1", "level": "must", "norm": "PN-EN 716 / PN-EN 1130"},
+        {"name": "Materac dopasowany do łóżeczka, nowy", "qty": "1", "level": "must", "norm": "PN-EN 16890"},
+        {"name": "Prześcieradło z gumką", "qty": "2–3", "level": "must"},
+        {"name": "Śpiworek do spania (zamiast kołdry)", "qty": "2", "level": "must", "why": "Dobierz grubość (TOG) do temperatury w pokoju. Śpiworek nie zsunie się na twarz jak kołdra."},
+        {"name": "Pieluszki muślinowe lub tetrowe", "qty": "8–10", "level": "must", "why": "Podkład, śliniak, osłona od słońca, ręcznik. Najbardziej uniwersalna rzecz w wyprawce."},
+        {"name": "Rożek", "qty": "1", "level": "nice"}
+      ]
+    },
+    {
+      "title": "Pielęgnacja i kąpiel",
+      "items": [
+        {"name": "Pieluszki jednorazowe rozmiar 1", "qty": "1–2 opakowania", "level": "must", "why": "Nie rób dużego zapasu. Noworodki szybko przechodzą na rozmiar 2, a marka może nie pasować."},
+        {"name": "Waciki, gaziki i ciepła woda lub chusteczki nasączone wodą", "qty": "zapas", "level": "must"},
+        {"name": "Krem na odparzenia z tlenkiem cynku", "qty": "1", "level": "must"},
+        {"name": "Termometr elektroniczny", "qty": "1", "level": "must"},
+        {"name": "Aspirator do nosa i sól fizjologiczna w ampułkach", "qty": "1 + opak.", "level": "must"},
+        {"name": "Nożyczki z zaokrąglonymi końcami lub pilniczek", "qty": "1", "level": "must"},
+        {"name": "Wanienka ze stelażem lub wkładką", "qty": "1", "level": "must"},
+        {"name": "Ręcznik z kapturem", "qty": "2", "level": "must"},
+        {"name": "Termometr do wody", "qty": "1", "level": "nice", "why": "Woda do kąpieli około 37°C. Łokieć też wystarczy."},
+        {"name": "Przewijak z bokami lub nakładka na komodę", "qty": "1", "level": "nice", "norm": "PN-EN 12221"}
+      ]
+    },
+    {
+      "title": "Karmienie",
+      "items": [
+        {"name": "Wkładki laktacyjne", "qty": "1 opak.", "level": "situational", "why": "Przy karmieniu piersią."},
+        {"name": "Biustonosz do karmienia", "qty": "2", "level": "situational"},
+        {"name": "Poduszka do karmienia", "qty": "1", "level": "nice"},
+        {"name": "Laktator", "qty": "1", "level": "situational", "why": "Kup lub wypożycz dopiero, gdy będzie potrzebny. Doradczyni laktacyjna pomoże dobrać typ."},
+        {"name": "Butelki 150–250 ml", "qty": "4–6", "level": "situational", "why": "Przy karmieniu mlekiem modyfikowanym. Przy piersi wystarczą 1–2 na zapas."},
+        {"name": "Mleko modyfikowane", "qty": "—", "level": "situational", "why": "Wybór po rozmowie z położną lub pediatrą."}
+      ]
+    },
+    {
+      "title": "Wózek i transport",
+      "items": [
+        {"name": "Fotelik samochodowy 0–13 kg lub 40–87 cm", "qty": "1", "level": "must", "norm": "ECE R129 (i-Size)", "why": "Potrzebny już przy wyjeździe ze szpitala. Nie kupuj używanego o nieznanej historii, bo po wypadku traci właściwości."},
+        {"name": "Wózek z gondolą (głęboką)", "qty": "1", "level": "must", "norm": "PN-EN 1888", "why": "Niemowlę do ok. 6. miesiąca powinno leżeć płasko."},
+        {"name": "Nosidło ergonomiczne lub chusta", "qty": "1", "level": "nice", "norm": "PN-EN 13209", "why": "Nóżki w pozycji M, twarz widoczna, nad chustą da się pocałować dziecko w czoło."},
+        {"name": "Torba do wózka z przewijakiem", "qty": "1", "level": "nice"}
+      ]
+    },
+    {
+      "title": "Torba do szpitala",
+      "items": [
+        {"name": "Dokumenty: dowód, karta ciąży, wyniki badań, grupa krwi", "qty": "", "level": "must"},
+        {"name": "Ubranko na wyjście i czapeczka", "qty": "1 kpl.", "level": "must"},
+        {"name": "Pieluszki rozmiar 1 i chusteczki", "qty": "kilkanaście", "level": "must"},
+        {"name": "Podkłady poporodowe i majtki siateczkowe", "qty": "zapas", "level": "must"},
+        {"name": "Koszule rozpinane do karmienia", "qty": "2", "level": "must"},
+        {"name": "Ładowarka z długim kablem", "qty": "1", "level": "nice"}
+      ]
+    }
+  ],
+  "avoid": {
+    "title": "Nie kupuj",
+    "items": [
+      {"name": "Ochraniacze na szczebelki łóżeczka", "why": "Zwiększają ryzyko uduszenia i SIDS. Pediatrzy odradzają je jednoznacznie."},
+      {"name": "Poduszka i kołdra dla niemowlęcia", "why": "Do 12. miesiąca łóżeczko powinno być puste. Zamiast kołdry śpiworek."},
+      {"name": "Kliny i pozycjonery do spania", "why": "Nie zmniejszają ryzyka SIDS, a dziecko może się w nie wtulić twarzą."},
+      {"name": "Chodzik", "why": "Częste urazy (upadki ze schodów) i brak korzyści dla nauki chodzenia. Lepszy stabilny pchacz."},
+      {"name": "Buciki dla niechodzącego niemowlęcia", "why": "Wystarczą skarpetki lub ciepłe papcie do wózka."},
+      {"name": "Podgrzewacz do chusteczek i inne gadżety jednej funkcji", "why": "Mało przydatne, zajmują miejsce."},
+      {"name": "Używany fotelik samochodowy o nieznanej historii", "why": "Uszkodzenia po kolizji bywają niewidoczne."}
+    ]
+  }
+}
