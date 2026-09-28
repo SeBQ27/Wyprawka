@@ -1,0 +1,76 @@
+{
+  "id": "sen",
+  "title": "Room and sleep",
+  "intro": "Furniture, mattress, bedside crib and lighting. For each item: what to check in the shop and which standard should be on the label.",
+  "sections": [
+    {
+      "title": "Safe sleep rules",
+      "tip": "This is the foundation. Fit the rest of your purchases around it.",
+      "items": [
+        {"name": "Always on the back, on a flat, firm surface", "level": "must", "kind": "rule"},
+        {"name": "Empty cot: no pillow, duvet, soft toys or bumpers", "level": "must", "kind": "rule"},
+        {"name": "Sleep in the parents' room, ideally for the first 6 months", "level": "must", "kind": "rule", "why": "Own cot or a bedside crib next to the parents' bed."},
+        {"name": "Room temperature 16–20°C", "level": "must", "kind": "rule", "why": "Overheating is a SIDS risk factor. Check the back of the neck, not the hands."},
+        {"name": "No tobacco smoke at home or near the baby", "level": "must", "kind": "rule"}
+      ]
+    },
+    {
+      "title": "Cot",
+      "items": [
+        {"name": "60×120 cm cot with adjustable base height", "level": "must", "norm": "EN 716",
+         "criteria": ["Bar spacing 4.5–6.5 cm", "No decorative cut-outs or protruding parts", "Stable, doesn't wobble when assembled", "Child-safe paint and varnish (marked on the label)", "Removable bars come in handy around age 2"]},
+        {"name": "Crib or Moses basket", "level": "situational", "norm": "EN 1130",
+         "why": "For the first 3–4 months. No longer safe once the baby starts rolling over."}
+      ]
+    },
+    {
+      "title": "Bedside crib",
+      "tip": "Closeness without bed-sharing. A tight fit is key.",
+      "items": [
+        {"name": "Bedside crib with straps fixing it to the parents' bed frame", "level": "must", "norm": "EN 1130",
+         "criteria": ["Straps or hooks fixing it to the frame, no gap between the mattresses", "Height adjustable to the level of the parents' mattress", "High side panel on the parents' side for when it isn't attached", "Flat base, no tilt", "Check the weight and age limit (usually about 6 months or until sitting up)"]},
+        {"name": "Mattress made for this specific bedside crib", "level": "must",
+         "why": "A mattress from another cot leaves gaps at the edges."}
+      ]
+    },
+    {
+      "title": "Mattress",
+      "items": [
+        {"name": "Firm, flat mattress with a perfect fit", "level": "must", "norm": "EN 16890",
+         "criteria": ["Gap between mattress and cot side no wider than two fingers", "Hand test: the dent springs back quickly, your hand doesn't sink in", "New, not used by another child", "Removable cover washable at 60°C", "OEKO-TEX Standard 100 label on the cover", "No memory foam — too soft for a baby"]},
+        {"name": "Waterproof protector under the sheet", "level": "nice", "why": "Thin, fitted, no loose edges."}
+      ]
+    },
+    {
+      "title": "Furniture",
+      "items": [
+        {"name": "Dresser with changing top, anchored to the wall", "level": "must", "norm": "EN 12221 (changing unit)",
+         "criteria": ["Anti-tip brackets — a dresser with open drawers tips over easily", "Changing surface at 90–100 cm, at the parent's waist height", "Changing mat with raised sides", "Everything for changing within reach so you never step away from the baby"]},
+        {"name": "Armchair or comfortable feeding spot with back and arm support", "level": "nice"},
+        {"name": "Shelves and pictures screwed down and not above the cot", "level": "must", "kind": "rule"},
+        {"name": "Cot away from windows, radiators and blind cords", "level": "must", "kind": "rule", "why": "Blind and curtain cords are a strangulation risk. Tie them up high or fit a cord tensioner."}
+      ]
+    },
+    {
+      "title": "Lighting",
+      "tip": "At night, light should let you change and feed without waking the baby or yourself.",
+      "items": [
+        {"name": "Warm, dimmable night light (2700 K or lower, ideally amber)", "level": "must",
+         "criteria": ["Dims to a very low level", "Warm or amber colour, no blue light", "Battery-powered or with a short cable out of the child's reach", "Doesn't shine into the eyes of a lying baby"]},
+        {"name": "Diffused main lighting, not a spotlight above the changing table", "level": "must",
+         "why": "When being changed, the baby lies on their back looking straight at the ceiling."},
+        {"name": "Blackout curtains or blinds", "level": "nice", "why": "Help with daytime naps and summer sleep."},
+        {"name": "Star projector or white-noise lamp", "level": "situational", "why": "Optional. Keep the noise quiet and away from the baby's head."}
+      ]
+    },
+    {
+      "title": "Climate and monitoring",
+      "items": [
+        {"name": "Thermometer with hygrometer", "level": "must", "why": "Target: 16–20°C and 40–60% humidity."},
+        {"name": "Humidifier", "level": "situational", "why": "In the heating season, when humidity drops below 40%."},
+        {"name": "Baby monitor", "level": "nice"},
+        {"name": "Breathing monitor", "level": "situational", "why": "There's no evidence it prevents SIDS. Consider it if a doctor recommends it."}
+      ]
+    }
+  ]
+}

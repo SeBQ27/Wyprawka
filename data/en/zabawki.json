@@ -1,0 +1,80 @@
+{
+  "id": "zabawki",
+  "title": "Recommended toys",
+  "intro": "Toys matched to developmental stage, from 0 to 6 years. Fewer toys rotated every 1–2 weeks work better than a full toy box.",
+  "sections": [
+    {
+      "title": "Toy safety",
+      "tip": "Check this with every purchase, second-hand included.",
+      "items": [
+        {"name": "CE marking and compliance with EN 71", "level": "must", "kind": "rule"},
+        {"name": "Toilet-roll test: anything that fits through the tube is not for children under 3", "level": "must", "kind": "rule"},
+        {"name": "Button batteries only behind a screw-fastened cover", "level": "must", "kind": "rule", "why": "A swallowed button battery can seriously damage the oesophagus within 2 hours."},
+        {"name": "Strong magnets only for older children", "level": "must", "kind": "rule", "why": "Two swallowed magnets can attract each other through the intestinal walls."},
+        {"name": "No long strings or ribbons near the cot", "level": "must", "kind": "rule"}
+      ]
+    },
+    {
+      "title": "0–3 months", "ageFrom": 0, "ageTo": 3,
+      "items": [
+        {"name": "Black-and-white contrast cards", "level": "must", "why": "A newborn sees strong contrasts best at 20–30 cm."},
+        {"name": "Play gym with an arch", "level": "must", "why": "Tummy time and reaching."},
+        {"name": "Lightweight rattle", "level": "nice"},
+        {"name": "Cot mobile", "level": "nice", "why": "Remove it when the baby starts sitting up or reaching, usually around 5 months."},
+        {"name": "Baby-safe mirror", "level": "nice"}
+      ]
+    },
+    {
+      "title": "3–6 months", "ageFrom": 3, "ageTo": 6,
+      "items": [
+        {"name": "Teethers", "level": "must", "why": "Chilled in the fridge, not frozen."},
+        {"name": "Textured sensory ball", "level": "must"},
+        {"name": "Cloth or crinkle books", "level": "must"},
+        {"name": "Rattles in different shapes and textures", "level": "nice"}
+      ]
+    },
+    {
+      "title": "6–12 months", "ageFrom": 6, "ageTo": 12,
+      "items": [
+        {"name": "Stacking and nesting cups", "level": "must"},
+        {"name": "Large soft or wooden blocks", "level": "must"},
+        {"name": "Simple shape sorter", "level": "nice"},
+        {"name": "Sturdy push walker (once pulling to stand, around 9–10 months)", "level": "nice", "why": "Instead of a baby walker."},
+        {"name": "Bath toys without holes", "level": "nice", "why": "Toys with a hole collect water and mould."},
+        {"name": "Instruments: drum, maracas", "level": "nice"}
+      ]
+    },
+    {
+      "title": "1–2 years", "ageFrom": 12, "ageTo": 24,
+      "items": [
+        {"name": "Board books", "level": "must"},
+        {"name": "Ride-on or push toy", "level": "must"},
+        {"name": "Knob puzzles", "level": "must"},
+        {"name": "Chunky crayons and large paper", "level": "nice"},
+        {"name": "Sandpit set", "level": "nice"},
+        {"name": "Large connecting blocks", "level": "nice"}
+      ]
+    },
+    {
+      "title": "2–3 years", "ageFrom": 24, "ageTo": 36,
+      "items": [
+        {"name": "Balance bike with a helmet", "level": "must"},
+        {"name": "Puzzles with 4–12 pieces", "level": "must"},
+        {"name": "Pretend-play toys: kitchen, tools, doll", "level": "must"},
+        {"name": "Play dough or modelling clay", "level": "nice"},
+        {"name": "Wooden train set with tracks", "level": "nice"}
+      ]
+    },
+    {
+      "title": "3–6 years", "ageFrom": 36, "ageTo": 72,
+      "items": [
+        {"name": "Construction sets with smaller pieces (3+)", "level": "must"},
+        {"name": "Simple board and card games", "level": "must"},
+        {"name": "Bike with or without stabilisers, scooter, helmet", "level": "must"},
+        {"name": "Child scissors, glue, paints", "level": "nice"},
+        {"name": "Figures, dolls, dollhouse", "level": "nice"},
+        {"name": "Simple science kits", "level": "nice", "why": "From about age 5, with an adult."}
+      ]
+    }
+  ]
+}

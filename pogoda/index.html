@@ -89,13 +89,13 @@ details summary{cursor:pointer;font-weight:700}
 <div class="wrap" id="app">
   <div class="top">
     <a class="brand" href="../"><i></i>Wyprawka</a>
-    <button class="ghost small" id="btnSetup" type="button">Ustawienia</button>
+    <button class="ghost icon-btn" id="btnSetup" type="button" data-i18n-attr="aria-label:p.settings;title:p.settings"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button>
   </div>
 
-  <div class="card row" id="exBanner" hidden><div class="small"><b>Przykładowe dziecko.</b> Ustaw swoje w 3 krokach, a rekomendacja dopasuje się do wieku.</div><button type="button" class="primary" id="exGo" style="flex:0 0 auto">Zacznij</button></div>
+  <div class="card row" id="exBanner" hidden><div class="small"><b data-i18n="p.ex.b">Przykładowe dziecko.</b> <span data-i18n="p.ex.d">Ustaw swoje w 3 krokach, a rekomendacja dopasuje się do wieku.</span></div><button type="button" class="primary" id="exGo" style="flex:0 0 auto" data-i18n="p.ex.go">Zacznij</button></div>
   <div class="kids" id="kids"></div>
 
-  <section class="card stack wx-card" aria-label="Pogoda">
+  <section class="card stack wx-card" data-i18n-attr="aria-label:p.wx">
     <div class="wx">
       <div class="big" id="wxTemp">–</div>
       <div>
@@ -106,23 +106,23 @@ details summary{cursor:pointer;font-weight:700}
     <div class="stats" id="wxStats"></div>
     <div class="demo" id="wxDemo" hidden></div>
     <div>
-      <div class="label" style="margin-bottom:6px">Kiedy wychodzicie?</div>
+      <div class="label" style="margin-bottom:6px" data-i18n="p.when">Kiedy wychodzicie?</div>
       <div class="hours" id="hours"></div>
     </div>
     <div class="row">
       <div>
-        <div class="label" style="margin-bottom:6px">Co robicie</div>
+        <div class="label" style="margin-bottom:6px" data-i18n="p.what">Co robicie</div>
         <div class="chips" id="acts"></div>
       </div>
     </div>
     <div>
-      <div class="label" style="margin-bottom:6px">Jak długo</div>
+      <div class="label" style="margin-bottom:6px" data-i18n="p.dur">Jak długo</div>
       <div class="chips" id="durs"></div>
     </div>
   </section>
 
   <section class="card verdict" id="verdict" aria-live="polite">
-    <div class="label" id="vLabel">Rekomendacja</div>
+    <div class="label" id="vLabel" data-i18n="p.rec">Rekomendacja</div>
     <h2 id="vTitle">–</h2>
     <div>
       <div class="gauge"><span id="gDot" style="left:50%"></span></div>
@@ -131,25 +131,25 @@ details summary{cursor:pointer;font-weight:700}
     <div class="why" id="vWhy"></div>
   </section>
 
-  <section class="card outfit" id="outfit" aria-label="Co założyć"></section>
+  <section class="card outfit" id="outfit" data-i18n-attr="aria-label:p.outfit"></section>
 
-  <section class="alerts" id="alerts" aria-label="Wskazówki"></section>
+  <section class="alerts" id="alerts" data-i18n-attr="aria-label:p.tips"></section>
 
   <details class="card">
-    <summary>Zmień warunki ręcznie</summary>
-    <p class="muted small">Nadpisuje prognozę. Przydatne do sprawdzenia, jak zmieni się ubiór.</p>
+    <summary data-i18n="p.m.sum">Zmień warunki ręcznie</summary>
+    <p class="muted small" data-i18n="p.m.d">Nadpisuje prognozę. Przydatne do sprawdzenia, jak zmieni się ubiór.</p>
     <div class="manual">
-      <label>Odczuwalna °C<input id="mT" type="number" step="1" inputmode="numeric"></label>
-      <label>Wiatr km/h<input id="mW" type="number" step="1" inputmode="numeric"></label>
-      <label>Szansa opadów %<input id="mP" type="number" step="5" inputmode="numeric"></label>
-      <label>Indeks UV<input id="mU" type="number" step="1" inputmode="numeric"></label>
-      <label>Opad<select id="mK"><option value="none">brak</option><option value="rain">deszcz</option><option value="snow">śnieg</option></select></label>
-      <label>&nbsp;<button type="button" id="mApply" class="primary">Przelicz</button></label>
+      <label><span data-i18n="p.m.t">Odczuwalna °C</span><input id="mT" type="number" step="1" inputmode="numeric"></label>
+      <label><span data-i18n="p.m.w">Wiatr km/h</span><input id="mW" type="number" step="1" inputmode="numeric"></label>
+      <label><span data-i18n="p.m.p">Szansa opadów %</span><input id="mP" type="number" step="5" inputmode="numeric"></label>
+      <label><span data-i18n="p.m.u">Indeks UV</span><input id="mU" type="number" step="1" inputmode="numeric"></label>
+      <label><span data-i18n="p.m.k">Opad</span><select id="mK"><option value="none" data-i18n="p.k.none">brak</option><option value="rain" data-i18n="p.k.rain">deszcz</option><option value="snow" data-i18n="p.k.snow">śnieg</option></select></label>
+      <label>&nbsp;<button type="button" id="mApply" class="primary" data-i18n="p.m.apply">Przelicz</button></label>
     </div>
-    <p><button type="button" id="mReset" class="ghost small">Wróć do prognozy</button></p>
+    <p><button type="button" id="mReset" class="ghost small" data-i18n="p.m.reset">Wróć do prognozy</button></p>
   </details>
 
-  <footer><a href="../">← Wszystkie moduły</a> · Pogoda: Open-Meteo. Wskazówki mają charakter ogólny. Zawsze sprawdź kark dziecka.</footer>
+  <footer><a href="../" data-i18n="p.f.back">← Wszystkie moduły</a><span data-i18n="p.f.note"> · Pogoda: Open-Meteo. Wskazówki mają charakter ogólny. Zawsze sprawdź kark dziecka.</span></footer>
 </div>
 
 <div class="overlay setup" id="setup" hidden>
@@ -159,8 +159,12 @@ details summary{cursor:pointer;font-weight:700}
   </div>
 </div>
 
+<script src="../assets/i18n.js"></script>
+<script src="lang.js"></script>
 <script>
 (()=>{
+const t=(k,v)=>I18N.t("p."+k,v);
+document.title=t("title");
 const $=s=>document.querySelector(s);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const LS="cieplutko.v1";
@@ -172,7 +176,7 @@ const now=new Date();
 const monthsAgo=m=>{const d=new Date(now.getFullYear(),now.getMonth()-m,1);return d.toISOString().slice(0,7)};
 let S=load()||{
   example:true,
-  kids:[{id:"k1",name:"Maluch",birth:monthsAgo(8),feel:0}],
+  kids:[{id:"k1",name:t("kid.default"),birth:monthsAgo(8),feel:0}],
   active:"k1",
   place:{name:"Katowice",lat:50.2649,lon:19.0238},
   act:"wozek",dur:60,
@@ -180,7 +184,7 @@ let S=load()||{
 let WX=null, startIdx=0, manual=null;
 
 /* ---------- weather ---------- */
-const WMO={0:"Bezchmurnie",1:"Przeważnie słonecznie",2:"Częściowe zachmurzenie",3:"Pochmurno",45:"Mgła",48:"Szadź",51:"Lekka mżawka",53:"Mżawka",55:"Gęsta mżawka",56:"Marznąca mżawka",57:"Marznąca mżawka",61:"Słaby deszcz",63:"Deszcz",65:"Ulewa",66:"Marznący deszcz",67:"Marznący deszcz",71:"Słaby śnieg",73:"Śnieg",75:"Intensywny śnieg",77:"Ziarna śniegu",80:"Przelotny deszcz",81:"Przelotne opady",82:"Gwałtowne opady",85:"Przelotny śnieg",86:"Śnieżyca",95:"Burza",96:"Burza z gradem",99:"Burza z gradem"};
+const WMO=c=>{const v=t("wmo."+c);return v.startsWith("p.wmo.")?"–":v};
 const kindOf=c=>([71,73,75,77,85,86].includes(c)?"snow":(c>=51&&c<=67)||(c>=80&&c<=82)||c>=95?"rain":"none");
 
 function sampleWeather(){ // realistic autumn day in Silesia, clearly marked as sample
@@ -199,18 +203,18 @@ async function fetchWeather(p){
   return{sample:false,cur:{t:j.current.temperature_2m,feels:j.current.apparent_temperature,code:j.current.weather_code,wind:j.current.wind_speed_10m},hours};
 }
 async function geocode(q){
-  const r=await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(q)}&count=6&language=pl&format=json`);
+  const r=await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(q)}&count=6&language=${I18N.lang}&format=json`);
   const j=await r.json();return(j.results||[]).map(x=>({name:x.name,sub:[x.admin1,x.country].filter(Boolean).join(", "),lat:x.latitude,lon:x.longitude}));
 }
 async function reverseName(lat,lon){
-  try{const r=await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=pl`);const j=await r.json();return j.city||j.locality||"Twoja lokalizacja"}catch(e){return"Twoja lokalizacja"}
+  try{const r=await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=${I18N.lang}`);const j=await r.json();return j.city||j.locality||t("loc.yours")}catch(e){returnt("loc.yours")}
 }
 function gps(){return new Promise((res,rej)=>{if(!navigator.geolocation)return rej(new Error("brak GPS"));navigator.geolocation.getCurrentPosition(p=>res({lat:p.coords.latitude,lon:p.coords.longitude}),rej,{enableHighAccuracy:false,timeout:10000,maximumAge:600000})})}
 
 /* ---------- engine ---------- */
 const ageM=k=>{const [y,m]=k.birth.split("-").map(Number);return Math.max(0,(now.getFullYear()-y)*12+(now.getMonth()+1-m))};
-const ageTxt=m=>m<1?"noworodek":m<24?`${m} mies.`:`${Math.floor(m/12)} ${Math.floor(m/12)<5?"lata":"lat"}${m%12>=6?" i pół":""}`;
-const ACTS={wozek:{n:"Wózek",d:"leży lub siedzi"},nosidlo:{n:"Nosidło",d:"przy rodzicu"},spacer:{n:"Spacer",d:"idzie sam"},plac:{n:"Plac zabaw",d:"biega"}};
+const ageTxt=m=>I18N.ageText(m,true);
+const ACTS={wozek:{n:t("act.wozek"),d:t("act.wozek.d")},nosidlo:{n:t("act.nosidlo"),d:t("act.nosidlo.d")},spacer:{n:t("act.spacer"),d:t("act.spacer.d")},plac:{n:t("act.plac"),d:t("act.plac.d")}};
 const actsFor=m=>m<12?["wozek","nosidlo"]:["wozek","spacer","plac"];
 
 function windowOf(hours,i,dur){
@@ -222,22 +226,22 @@ function windowOf(hours,i,dur){
 }
 
 const BANDS=[
- {min:24,key:"hot",name:"Upał",color:"#C4552F"},
- {min:19,key:"warm",name:"Ciepło",color:"#B98A12"},
- {min:14,key:"mild",name:"Łagodnie",color:"#3E8A63"},
- {min:9,key:"cool",name:"Chłodno",color:"#3C8595"},
- {min:2,key:"cold",name:"Zimno",color:"#3874A8"},
- {min:-5,key:"frost",name:"Bardzo zimno",color:"#34579A"},
- {min:-99,key:"severe",name:"Ekstremalnie zimno",color:"#2B3F7A"}];
+ {min:24,key:"hot",name:t("band.hot"),color:"#C4552F"},
+ {min:19,key:"warm",name:t("band.warm"),color:"#B98A12"},
+ {min:14,key:"mild",name:t("band.mild"),color:"#3E8A63"},
+ {min:9,key:"cool",name:t("band.cool"),color:"#3C8595"},
+ {min:2,key:"cold",name:t("band.cold"),color:"#3874A8"},
+ {min:-5,key:"frost",name:t("band.frost"),color:"#34579A"},
+ {min:-99,key:"severe",name:t("band.severe"),color:"#2B3F7A"}];
 
 function recommend(kid,w,act,dur){
   const m=ageM(kid), infant=m<12, walker=m>=12;
   let adj=0, why=[];
   const actAdj={wozek:infant?-3:-2,nosidlo:3,spacer:2,plac:4}[act];
   adj+=actAdj; why.push(`${ACTS[act].n} ${actAdj>0?"+":""}${actAdj}°`);
-  if(m<3){adj-=1;why.push("noworodek −1°")}
-  if(kid.feel){adj+=kid.feel;why.push(kid.feel<0?`zmarzluch ${kid.feel}°`:`szybko się grzeje +${kid.feel}°`)}
-  if(dur>=90){adj-=1;why.push("długi spacer −1°")}
+  if(m<3){adj-=1;why.push(t("why.newborn"))}
+  if(kid.feel){adj+=kid.feel;why.push(kid.feel<0?t("why.cold",{v:kid.feel}):t("why.warm",{v:kid.feel}))}
+  if(dur>=90){adj-=1;why.push(t("why.long"))}
   const T=Math.round(w.feels+adj);
   const band=BANDS.find(b=>T>=b.min);
   const O={head:[],neck:[],body:[],legs:[],feet:[],hands:[],gear:[]};
@@ -246,79 +250,79 @@ function recommend(kid,w,act,dur){
 
   switch(band.key){
    case"hot":
-    L("body",infant?"Samo body z krótkim rękawem lub bez rękawów (bawełna, len)":"Luźna koszulka z krótkim rękawem (bawełna, len)");
-    L("legs",infant?"Tylko pielucha albo cienkie szorty":"Krótkie spodenki lub przewiewna sukienka");
-    L("feet",walker?"Sandały z zakrytymi palcami":"Boso");
-    L("head","Kapelusz z rondem, jasny, przewiewny");break;
+    L("body",infant?t("o.hot.b1"):t("o.hot.b2"));
+    L("legs",infant?t("o.hot.l1"):t("o.hot.l2"));
+    L("feet",walker?t("o.hot.f1"):t("o.hot.f2"));
+    L("head",t("o.hot.h"));break;
    case"warm":
-    L("body","Koszulka lub body z krótkim rękawem");
-    L("body","Cienka bluza rozpinana",true);
-    L("legs","Cienkie długie spodnie lub legginsy");
-    L("feet",walker?"Skarpetki i lekkie buty":"Cienkie skarpetki");
-    L("head",w.uv>=3?"Kapelusz lub czapka z daszkiem":(infant?"Cienka czapeczka, tylko przy wietrze":"Bez czapki"),!(w.uv>=3)&&infant);break;
+    L("body",t("o.warm.b1"));
+    L("body",t("o.warm.b2"),true);
+    L("legs",t("o.warm.l"));
+    L("feet",walker?t("o.warm.f1"):t("o.warm.f2"));
+    L("head",w.uv>=3?t("o.warm.h1"):(infant?t("o.warm.h2"):t("o.warm.h3")),!(w.uv>=3)&&infant);break;
    case"mild":
-    L("body","Body lub koszulka z długim rękawem");
-    L("body","Cienka bluza lub sweterek");
-    if(windy||wet)L("body","Wiatrówka lub cienka kurtka");else L("body","Cienka kurtka",true);
-    L("legs","Długie spodnie (dresowe, bawełniane)");
-    L("feet",walker?"Skarpetki i pełne buty":"Skarpetki");
-    L("head",infant?"Cienka bawełniana czapka":"Cienka czapka przy wietrze",!infant&&!windy);break;
+    L("body",t("o.mild.b1"));
+    L("body",t("o.mild.b2"));
+    if(windy||wet)L("body",t("o.mild.b3"));else L("body",t("o.mild.b4"),true);
+    L("legs",t("o.mild.l"));
+    L("feet",walker?t("o.mild.f1"):t("o.mild.f2"));
+    L("head",infant?t("o.mild.h1"):t("o.mild.h2"),!infant&&!windy);break;
    case"cool":
-    L("body","Body lub koszulka z długim rękawem");
-    L("body","Polar lub bluza");
-    L("body","Kurtka przejściowa");
-    L("legs",m<24?"Rajstopki + długie spodnie":"Długie spodnie");
-    L("feet",walker?"Grubsze skarpety i buty przejściowe":"Grubsze skarpety");
-    L("head","Cienka czapka zakrywająca uszy");
-    L("neck","Komin lub chustka",!windy);
-    if(walker)L("hands","Cienkie rękawiczki",true);break;
+    L("body",t("o.mild.b1"));
+    L("body",t("o.cool.b2"));
+    L("body",t("o.cool.b3"));
+    L("legs",m<24?t("o.cool.l1"):t("o.cool.l2"));
+    L("feet",walker?t("o.cool.f1"):t("o.cool.f2"));
+    L("head",t("o.cool.h"));
+    L("neck",t("o.cool.n"),!windy);
+    if(walker)L("hands",t("o.cool.hd"),true);break;
    case"cold":
-    L("body","Body lub koszulka z długim rękawem");
-    L("body","Polar lub sweter");
-    L("body",infant?"Kombinezon ocieplany":"Kurtka ocieplana");
-    L("legs",infant?"Rajstopy + spodnie (pod kombinezon)":"Rajstopy + spodnie lub spodnie ocieplane");
-    L("feet",walker?"Ciepłe skarpety i buty ocieplane":"Ciepłe skarpety lub papcie do wózka");
-    L("head","Ciepła czapka na uszy");
-    L("neck","Komin");
-    L("hands",walker?"Rękawiczki":"Łapki niemowlęce");break;
+    L("body",t("o.mild.b1"));
+    L("body",t("o.cold.b2"));
+    L("body",infant?t("o.cold.b3a"):t("o.cold.b3b"));
+    L("legs",infant?t("o.cold.l1"):t("o.cold.l2"));
+    L("feet",walker?t("o.cold.f1"):t("o.cold.f2"));
+    L("head",t("o.cold.h"));
+    L("neck",t("o.cold.n"));
+    L("hands",walker?t("o.cold.hd1"):t("o.cold.hd2"));break;
    case"frost": case"severe":
-    L("body","Bielizna termoaktywna lub body z wełny merino");
-    L("body","Polar lub wełniany sweter");
-    L("body","Kombinezon zimowy");
-    L("legs","Rajstopy wełniane lub legginsy termo (pod kombinezon)");
-    L("feet",walker?"Wełniane skarpety i buty zimowe":"Wełniane skarpety, buciki lub śpiworek zakrywający stopy");
-    L("head",band.key==="severe"?"Kominiarka i zimowa czapka":"Zimowa czapka, ewentualnie kominiarka");
-    L("neck","Komin polarowy");
-    L("hands",walker?"Nieprzemakalne łapki":"Łapki niemowlęce");break;
+    L("body",t("o.frost.b1"));
+    L("body",t("o.frost.b2"));
+    L("body",t("o.frost.b3"));
+    L("legs",t("o.frost.l"));
+    L("feet",walker?t("o.frost.f1"):t("o.frost.f2"));
+    L("head",band.key==="severe"?t("o.frost.h1"):t("o.frost.h2"));
+    L("neck",t("o.frost.n"));
+    L("hands",walker?t("o.frost.hd"):t("o.cold.hd2"));break;
   }
-  if(wet&&walker&&act!=="wozek"){L("body","Kurtka przeciwdeszczowa jako wierzchnia warstwa");L("legs","Spodnie przeciwdeszczowe na wierzch");O.feet=[{txt:T<8?"Kalosze z ciepłą wkładką":"Kalosze",opt:false}]}
-  if(snow&&walker){L("legs","Spodnie nieprzemakalne (śnieg)");L("hands","Zapasowa para rękawiczek",true)}
-  if(act==="plac"){L("gear","Zapasowe skarpetki i spodnie",true);if(T>=14&&T<24)L("gear","Bluzę zdejmij po 10 min zabawy, jeśli się grzeje",true)}
+  if(wet&&walker&&act!=="wozek"){L("body",t("o.wet.b"));L("legs",t("o.wet.l"));O.feet=[{txt:T<8?t("o.wet.f1"):t("o.wet.f2"),opt:false}]}
+  if(snow&&walker){L("legs",t("o.snow.l"));L("hands",t("o.snow.hd"),true)}
+  if(act==="plac"){L("gear",t("o.plac.1"),true);if(T>=14&&T<24)L("gear",t("o.plac.2"),true)}
 
   // stroller / carrier gear
   if(act==="wozek"){
-    L("gear",T>=22?"Bez kocyka. Nie zasłaniaj budki pieluszką, bo w środku robi się gorąco":T>=16?"Cienki kocyk muślinowy":T>=9?"Kocyk lub cienki śpiworek":T>=0?"Śpiwór do wózka":"Zimowy śpiwór do wózka i osłona od wiatru");
-    if(wet||snow)L("gear","Folia przeciwdeszczowa, uchylona dla wentylacji");
-    if(windy&&T<16)L("gear","Budka ustawiona od strony wiatru");
+    L("gear",T>=22?t("o.st.1"):T>=16?t("o.st.2"):T>=9?t("o.st.3"):T>=0?t("o.st.4"):t("o.st.5"));
+    if(wet||snow)L("gear",t("o.st.rain"));
+    if(windy&&T<16)L("gear",t("o.st.wind"));
   }
   if(act==="nosidlo"){
-    L("gear","Dziecko ubierz o jedną warstwę lżej. Ciepło rodzica grzeje");
-    if(T<14)L("gear","Kurtka lub osłona nosidłowa rodzica, ciepłe skarpety (stopy wystają)");
+    L("gear",t("o.car.1"));
+    if(T<14)L("gear",t("o.car.2"));
   }
 
   // alerts
   const A=[];
-  if(band.key==="severe")A.push(["bad","Rozważ krótszy spacer",infant?"Przy tak odczuwalnej temperaturze niemowlę wyjdź maksymalnie na 15–20 minut albo zostańcie w domu.":"Wyjdźcie na 20–30 minut i obserwujcie policzki i nos."]);
-  else if(band.key==="frost")A.push(["warn","Bardzo zimno",`Skróć spacer do 30–40 minut. Na policzki tłusty krem ochronny na zimno (bez wody), 20 minut przed wyjściem.`]);
-  if(w.tMax>=28)A.push(["bad","Upał","Unikaj wyjścia między 11 a 16. Częściej podawaj pierś, mleko lub wodę (wodę od 6. miesiąca). Szukaj cienia."]);
+  if(band.key==="severe")A.push(["bad",t("a.severe.t"),infant?t("a.severe.i"):t("a.severe.w")]);
+  else if(band.key==="frost")A.push(["warn",t("band.frost"),t("a.frost")]);
+  if(w.tMax>=28)A.push(["bad",t("band.hot"),t("a.heat")]);
   if(w.uv>=3){
-    if(m<6)A.push(["warn",`UV ${Math.round(w.uv)}`,"Niemowlę do 6. miesiąca trzymaj w cieniu i chroń ubraniem oraz budką. Kremów z filtrem u tak małych dzieci się unika."]);
-    else A.push(["warn",`UV ${Math.round(w.uv)}`,`Krem z filtrem SPF 50 (mineralny) na odkrytą skórę${w.uv>=6&&walker?", okulary UV400":""}.`]);
+    if(m<6)A.push(["warn",`UV ${Math.round(w.uv)}`,t("a.uv.inf")]);
+    else A.push(["warn",`UV ${Math.round(w.uv)}`,t("a.uv",{x:w.uv>=6&&walker?t("a.uv.glasses"):""})]);
   }
-  if(wet)A.push(["info","Może padać",`Szansa opadów do ${Math.round(w.pp)}%. ${act==="nosidlo"?"Weź parasol lub osłonę przeciwdeszczową na nosidło.":act==="wozek"?"Folia na wózek w koszu.":"Ubranie przeciwdeszczowe już jest na liście."}`]);
-  if(w.wind>=35)A.push(["warn","Silny wiatr",`Porywy do ${Math.round(w.wind)} km/h. Komin, osłona twarzy, unikaj otwartych przestrzeni.`]);
-  if(T<10)A.push(["info","Fotelik samochodowy","Przed zapięciem w foteliku zdejmij kurtkę lub kombinezon. Gruba warstwa luzuje pasy. Okryj dziecko kocem na pasy."]);
-  A.push(["ok","Test karku","Dotknij karku po 10 minutach. Ciepły i suchy: dobrze. Spocony: zdejmij warstwę. Chłodny: dołóż. Zimne dłonie są normalne i niczego nie mówią."]);
+  if(wet)A.push(["info",t("a.rain.t"),t("a.rain",{p:Math.round(w.pp),x:act==="nosidlo"?t("a.rain.car"):act==="wozek"?t("a.rain.st"):t("a.rain.w")})]);
+  if(w.wind>=35)A.push(["warn",t("a.wind.t"),t("a.wind",{v:Math.round(w.wind)})]);
+  if(T<10)A.push(["info",t("a.seat.t"),t("a.seat")]);
+  A.push(["ok",t("a.neck.t"),t("a.neck")]);
 
   return{T,band,O,A,why,m};
 }
@@ -329,13 +333,13 @@ function curWeather(){
   return windowOf(WX.hours,startIdx,S.dur);
 }
 const kid=()=>S.kids.find(k=>k.id===S.active)||S.kids[0];
-const hhmm=d=>d.toLocaleTimeString("pl-PL",{hour:"2-digit",minute:"2-digit"});
-const icon=h=>{const k=kindOf(h.code);return k==="snow"?"śnieg":k==="rain"?`${Math.round(h.pp)}%`:h.pp>=30?`${Math.round(h.pp)}%`:""};
+const hhmm=d=>d.toLocaleTimeString(I18N.locale,{hour:"2-digit",minute:"2-digit"});
+const icon=h=>{const k=kindOf(h.code);return k==="snow"?t("r.snow"):k==="rain"?`${Math.round(h.pp)}%`:h.pp>=30?`${Math.round(h.pp)}%`:""};
 
 function renderKids(){
   const el=$("#kids");
   el.innerHTML=S.kids.map(k=>`<button type="button" class="chip" aria-pressed="${k.id===S.active}" data-k="${k.id}">${esc(k.name)} · ${ageTxt(ageM(k))}</button>`).join("")+
-    `<button type="button" class="chip ghost" id="addKid">+ dziecko</button>`;
+    `<button type="button" class="chip ghost" id="addKid">${t("addkid")}</button>`;
   el.querySelectorAll("[data-k]").forEach(b=>b.onclick=()=>{S.active=b.dataset.k;const a=actsFor(ageM(kid()));if(!a.includes(S.act))S.act=a[0];save();render()});
   $("#addKid").onclick=()=>openSetup(true);
 }
@@ -343,11 +347,11 @@ function renderWeather(){
   const c=WX.cur;
   $("#wxTemp").textContent=`${Math.round(c.t)}°`;
   $("#wxPlace").textContent=S.place.name;
-  $("#wxDesc").textContent=`${WMO[c.code]||"–"} · odczuwalna ${Math.round(c.feels)}°`;
-  $("#wxStats").innerHTML=`<span>Wiatr <b>${Math.round(c.wind)} km/h</b></span><span>Maks. dziś <b>${Math.round(Math.max(...WX.hours.slice(0,12).map(h=>h.t)))}°</b></span><span>Min. <b>${Math.round(Math.min(...WX.hours.slice(0,12).map(h=>h.t)))}°</b></span>`;
+  $("#wxDesc").textContent=`${WMO(c.code)} · ${t("feels",{v:Math.round(c.feels)})}`;
+  $("#wxStats").innerHTML=`<span>${t("stat.wind")} <b>${Math.round(c.wind)} ${t("kmh")}</b></span><span>${t("stat.max")} <b>${Math.round(Math.max(...WX.hours.slice(0,12).map(h=>h.t)))}°</b></span><span>${t("stat.min")} <b>${Math.round(Math.min(...WX.hours.slice(0,12).map(h=>h.t)))}°</b></span>`;
   const d=$("#wxDemo");
-  if(WX.sample){d.hidden=false;d.textContent=WX.err||"Przykładowa prognoza. Po uruchomieniu aplikacji z własnego adresu pobierze się prawdziwa pogoda dla Twojej lokalizacji.";}else d.hidden=true;
-  $("#hours").innerHTML=WX.hours.slice(0,12).map((h,i)=>`<button type="button" class="hour" aria-pressed="${i===startIdx}" data-i="${i}"><span>${i===0?"Teraz":hhmm(h.time)}</span><span class="t">${Math.round(h.feels)}°</span><span class="p">${icon(h)}</span></button>`).join("");
+  if(WX.sample){d.hidden=false;d.textContent=WX.err||t("r.sample");}else d.hidden=true;
+  $("#hours").innerHTML=WX.hours.slice(0,12).map((h,i)=>`<button type="button" class="hour" aria-pressed="${i===startIdx}" data-i="${i}"><span>${i===0?t("r.now"):hhmm(h.time)}</span><span class="t">${Math.round(h.feels)}°</span><span class="p">${icon(h)}</span></button>`).join("");
   $("#hours").querySelectorAll(".hour").forEach(b=>b.onclick=()=>{startIdx=+b.dataset.i;render()});
   const acts=actsFor(ageM(kid()));
   $("#acts").innerHTML=acts.map(a=>`<button type="button" class="chip" aria-pressed="${a===S.act}" data-a="${a}">${ACTS[a].n}</button>`).join("");
@@ -359,12 +363,12 @@ function renderRec(){
   const k=kid(), w=curWeather(), r=recommend(k,w,S.act,S.dur);
   const v=$("#verdict");v.style.setProperty("--band",r.band.color);
   const layers=r.O.body.filter(x=>!x.opt).length;
-  $("#vLabel").textContent=`${esc(k.name)} · ${ageTxt(r.m)} · wyjście ${manual?"(ręcznie)":hhmm(w.start)}`;
-  $("#vTitle").textContent=`${r.band.name}: ${layers} ${layers===1?"warstwa":layers<5?"warstwy":"warstw"} na tułów`;
+  $("#vLabel").textContent=t("v.label",{name:k.name,age:ageTxt(r.m),time:manual?t("v.manual"):hhmm(w.start)});
+  $("#vTitle").textContent=t("v.title",{band:r.band.name,n:layers,w:I18N.plural(layers,{pl:["warstwa","warstwy","warstw"],en:["layer","layers"],uk:["шар","шари","шарів"]})});
   const pct=Math.max(0,Math.min(100,(r.T+15)/45*100));$("#gDot").style.left=pct+"%";
-  $("#vWhy").textContent=`Temperatura dla dziecka ${r.T}°. Liczona z najniższej odczuwalnej w czasie spaceru (${Math.round(w.feels)}°) i korekt: ${r.why.join(", ")}.`;
-  const SL=[["head","Głowa"],["neck","Szyja"],["body","Tułów"],["legs","Nogi"],["feet","Stopy"],["hands","Dłonie"],["gear",S.act==="wozek"?"Wózek":S.act==="nosidlo"?"Nosidło":"Do torby"]];
-  $("#outfit").innerHTML=`<div class="label" style="margin-bottom:10px">Co założyć · od skóry na zewnątrz</div>`+SL.filter(([s])=>r.O[s].length).map(([s,n])=>{let c=0;return(
+  $("#vWhy").textContent=t("v.why",{T:r.T,f:Math.round(w.feels),why:r.why.join(", ")});
+  const SL=[["head",t("sl.head")],["neck",t("sl.neck")],["body",t("sl.body")],["legs",t("sl.legs")],["feet",t("sl.feet")],["hands",t("sl.hands")],["gear",S.act==="wozek"?t("act.wozek"):S.act==="nosidlo"?t("act.nosidlo"):t("sl.bag")]];
+  $("#outfit").innerHTML=`<div class="label" style="margin-bottom:10px">${t("outfit.h")}</div>`+SL.filter(([s])=>r.O[s].length).map(([s,n])=>{let c=0;return(
     `<div class="slot"><div class="k">${n}</div><ol>${r.O[s].map(x=>`<li class="${x.opt?"opt":""}">${s==="body"&&!x.opt?`<span class="n">${++c}</span>`:""}<span>${esc(x.txt)}</span></li>`).join("")}</ol></div>`)}).join("");
   $("#alerts").innerHTML=r.A.map(([c,t,d])=>`<div class="alert ${c}"><div><b>${esc(t)}</b><span class="small">${esc(d)}</span></div></div>`).join("");
 }
@@ -382,35 +386,35 @@ function renderStep(){
   const bars=$("#stepBar").children;[...bars].forEach((b,i)=>b.classList.toggle("on",i<=step));
   const B=$("#stepBody");
   if(step===0){
-    B.innerHTML=`<div class="label">Krok 1 z 3</div><h1>Kogo ubieramy?</h1>
-    <label class="stack small"><span class="muted">Imię lub przydomek</span><input id="sName" autocomplete="off" placeholder="np. Staś" value="${esc(draft.name)}"></label>
-    <label class="stack small"><span class="muted">Miesiąc urodzenia</span><input id="sBirth" type="month" max="${now.toISOString().slice(0,7)}" value="${draft.birth}"></label>
-    <div class="stack small"><span class="muted">Jak znosi chłód?</span><div class="chips" id="sFeel">
-      ${[[-2,"Zmarzluch"],[0,"Typowo"],[2,"Szybko się poci"]].map(([v,n])=>`<button type="button" class="chip" data-f="${v}" aria-pressed="${draft.feel===v}">${n}</button>`).join("")}</div></div>
-    <div class="row"><button type="button" class="ghost" id="sCancel">Anuluj</button><button type="button" class="primary" id="sNext">Dalej</button></div>`;
+    B.innerHTML=`<div class="label">${t("s.step",{n:1})}</div><h1>${t("s.who")}</h1>
+    <label class="stack small"><span class="muted">${t("s.name")}</span><input id="sName" autocomplete="off" placeholder="${esc(t("s.name.ph"))}" value="${esc(draft.name)}"></label>
+    <label class="stack small"><span class="muted">${t("s.birth")}</span><input id="sBirth" type="month" max="${now.toISOString().slice(0,7)}" value="${draft.birth}"></label>
+    <div class="stack small"><span class="muted">${t("s.feel")}</span><div class="chips" id="sFeel">
+      ${[[-2,t("s.feel.cold")],[0,t("s.feel.typ")],[2,t("s.feel.hot")]].map(([v,n])=>`<button type="button" class="chip" data-f="${v}" aria-pressed="${draft.feel===v}">${n}</button>`).join("")}</div></div>
+    <div class="row"><button type="button" class="ghost" id="sCancel">${t("s.cancel")}</button><button type="button" class="primary" id="sNext">${t("s.next")}</button></div>`;
     B.querySelectorAll("[data-f]").forEach(b=>b.onclick=()=>{draft.feel=+b.dataset.f;draft.name=$("#sName").value;draft.birth=$("#sBirth").value||draft.birth;renderStep()});
-    $("#sNext").onclick=()=>{draft.name=$("#sName").value.trim()||"Maluch";draft.birth=$("#sBirth").value||draft.birth;if(addOnly){finish();return}step=1;renderStep()};
+    $("#sNext").onclick=()=>{draft.name=$("#sName").value.trim()||t("kid.default");draft.birth=$("#sBirth").value||draft.birth;if(addOnly){finish();return}step=1;renderStep()};
   }else if(step===1){
-    B.innerHTML=`<div class="label">Krok 2 z 3</div><h1>Gdzie spacerujecie?</h1>
-    <button type="button" class="primary" id="sGps">Użyj mojej lokalizacji</button>
-    <div class="muted small" id="sGpsMsg">Obecnie: ${esc(draft.place.name)}</div>
-    <label class="stack small"><span class="muted">albo wpisz miejscowość</span><input id="sCity" placeholder="np. Siemianowice Śląskie" autocomplete="off"></label>
+    B.innerHTML=`<div class="label">${t("s.step",{n:2})}</div><h1>${t("s.where")}</h1>
+    <button type="button" class="primary" id="sGps">${t("s.gps")}</button>
+    <div class="muted small" id="sGpsMsg">${esc(t("s.cur",{v:draft.place.name}))}</div>
+    <label class="stack small"><span class="muted">${t("s.city")}</span><input id="sCity" placeholder="${esc(t("s.city.ph"))}" autocomplete="off"></label>
     <div class="results" id="sRes"></div>
-    <div class="row"><button type="button" class="ghost" id="sBack">Wstecz</button><button type="button" class="primary" id="sNext">Dalej</button></div>`;
-    $("#sGps").onclick=async()=>{const m=$("#sGpsMsg");m.textContent="Szukam lokalizacji…";
-      try{const p=await gps();const name=await reverseName(p.lat,p.lon);draft.place={name,lat:p.lat,lon:p.lon};m.textContent="Obecnie: "+name}
-      catch(e){m.textContent="Nie udało się pobrać lokalizacji. Zezwól na dostęp w przeglądarce albo wpisz miejscowość."}};
+    <div class="row"><button type="button" class="ghost" id="sBack">${t("s.back")}</button><button type="button" class="primary" id="sNext">${t("s.next")}</button></div>`;
+    $("#sGps").onclick=async()=>{const m=$("#sGpsMsg");m.textContent=t("s.findloc");
+      try{const p=await gps();const name=await reverseName(p.lat,p.lon);draft.place={name,lat:p.lat,lon:p.lon};m.textContent=t("s.cur",{v:name})}
+      catch(e){m.textContent=t("s.locfail")}};
     let t;$("#sCity").oninput=e=>{clearTimeout(t);const q=e.target.value.trim();if(q.length<2){$("#sRes").innerHTML="";return}
-      t=setTimeout(async()=>{try{const rs=await geocode(q);$("#sRes").innerHTML=rs.length?rs.map((r,i)=>`<button type="button" data-i="${i}" style="text-align:left">${esc(r.name)} <span class="muted small">${esc(r.sub)}</span></button>`).join(""):`<span class="muted small">Brak wyników.</span>`;
-        $("#sRes").querySelectorAll("[data-i]").forEach(b=>b.onclick=()=>{draft.place=rs[+b.dataset.i];$("#sGpsMsg").textContent="Obecnie: "+draft.place.name;$("#sRes").innerHTML=""})}
-        catch(err){$("#sRes").innerHTML=`<span class="muted small">Wyszukiwarka miejscowości nie odpowiada. Spróbuj później.</span>`}},350)};
+      t=setTimeout(async()=>{try{const rs=await geocode(q);$("#sRes").innerHTML=rs.length?rs.map((r,i)=>`<button type="button" data-i="${i}" style="text-align:left">${esc(r.name)} <span class="muted small">${esc(r.sub)}</span></button>`).join(""):`<span class="muted small">${t("s.nores")}</span>`;
+        $("#sRes").querySelectorAll("[data-i]").forEach(b=>b.onclick=()=>{draft.place=rs[+b.dataset.i];$("#sGpsMsg").textContent=t("s.cur",{v:draft.place.name});$("#sRes").innerHTML=""})}
+        catch(err){$("#sRes").innerHTML=`<span class="muted small">${t("s.geofail")}</span>`}},350)};
     $("#sBack").onclick=()=>{step=0;renderStep()};$("#sNext").onclick=()=>{step=2;renderStep()};
   }else{
     const acts=actsFor(ageMFromBirth(draft.birth));if(!acts.includes(draft.act))draft.act=acts[0];
-    B.innerHTML=`<div class="label">Krok 3 z 3</div><h1>Jak zwykle wychodzicie?</h1>
+    B.innerHTML=`<div class="label">${t("s.step",{n:3})}</div><h1>${t("s.how")}</h1>
     <div class="opt-list">${acts.map(a=>`<button type="button" data-a="${a}" aria-pressed="${a===draft.act}">${ACTS[a].n}<small>${ACTS[a].d}</small></button>`).join("")}</div>
-    <p class="muted small">Możesz to zmienić przy każdym wyjściu.</p>
-    <div class="row"><button type="button" class="ghost" id="sBack">Wstecz</button><button type="button" class="primary" id="sNext">Gotowe</button></div>`;
+    <p class="muted small">${t("s.later")}</p>
+    <div class="row"><button type="button" class="ghost" id="sBack">${t("s.back")}</button><button type="button" class="primary" id="sNext">${t("s.done")}</button></div>`;
     B.querySelectorAll("[data-a]").forEach(b=>b.onclick=()=>{draft.act=b.dataset.a;renderStep()});
     $("#sBack").onclick=()=>{step=1;renderStep()};$("#sNext").onclick=finish;
   }
@@ -433,7 +437,7 @@ $("#btnSetup").onclick=()=>openSetup(false);$("#exGo").onclick=()=>openSetup(fal
 /* ---------- boot ---------- */
 async function refresh(){
   try{WX=await fetchWeather(S.place)}
-  catch(e){WX=sampleWeather();WX.err="Brak połączenia z serwisem pogodowym w tym podglądzie. Pokazuję przykładową jesienną prognozę. Po wdrożeniu na własny adres aplikacja pobiera prawdziwą pogodę."}
+  catch(e){WX=sampleWeather();WX.err=t("r.err")}
   startIdx=0;fillManual();
 }
 WX=sampleWeather();render();

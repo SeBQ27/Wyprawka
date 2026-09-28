@@ -1,5 +1,5 @@
 // Wspólny magazyn lokalny dla wszystkich modułów Wyprawki.
-// Profil dziecka jest współdzielony z modułem Pogoda (klucz "cieplutko.v1").
+// Wymaga assets/i18n.js (ageText). Profil dziecka jest współdzielony z modułem Pogoda (klucz "cieplutko.v1").
 window.Store = (() => {
   const get = k => { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } };
   const set = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
@@ -14,12 +14,7 @@ window.Store = (() => {
       const [y, m] = k.birth.split("-").map(Number);
       return Math.max(0, (now.getFullYear() - y) * 12 + (now.getMonth() + 1 - m));
     },
-    ageText(m) {
-      if (m < 1) return "noworodek";
-      if (m < 24) return `${m} mies.`;
-      const y = Math.floor(m / 12);
-      return `${y} ${y < 5 ? "lata" : "lat"}`;
-    },
+    ageText: m => I18N.ageText(m),
     checks: id => get(`wyprawka.checks.${id}`) || {},
     setCheck(id, key, val) { const c = this.checks(id); c[key] = val; set(`wyprawka.checks.${id}`, c); },
   };

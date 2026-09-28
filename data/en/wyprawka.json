@@ -1,0 +1,92 @@
+{
+  "id": "wyprawka",
+  "title": "Baby essentials checklist",
+  "intro": "A list for the first 3 months. Labels: essential, useful, depends. Quantities assume washing every 2–3 days.",
+  "sections": [
+    {
+      "title": "Clothes (size 56–62)",
+      "tip": "Size 56 can be too small after 2–4 weeks. Buy more in 62 and only a few pieces in 56. Wash everything in a mild, fragrance-free detergent before first use.",
+      "items": [
+        {"name": "Short-sleeve bodysuits", "qty": "5–7", "level": "must"},
+        {"name": "Long-sleeve bodysuits", "qty": "5–7", "level": "must"},
+        {"name": "Sleepsuits (ideally with front snaps or a zip)", "qty": "5–7", "level": "must"},
+        {"name": "Footed leggings or trousers", "qty": "4–5", "level": "must"},
+        {"name": "Socks", "qty": "5–6 pairs", "level": "must"},
+        {"name": "Thin cotton hat", "qty": "2", "level": "must"},
+        {"name": "Warm hat, snowsuit or stroller footmuff", "qty": "1", "level": "situational", "why": "Depends on the season. The Weather module covers autumn, spring and winter."},
+        {"name": "Anti-scratch mittens", "qty": "2 pairs", "level": "nice"},
+        {"name": "Wrap-around tops", "qty": "2–3", "level": "nice"}
+      ]
+    },
+    {
+      "title": "Sleep",
+      "tip": "Details and buying criteria for the cot, bedside crib and mattress are in the Room & sleep module.",
+      "items": [
+        {"name": "Cot or bedside crib attached to the parents' bed", "qty": "1", "level": "must", "norm": "EN 716 / EN 1130"},
+        {"name": "New mattress that fits the cot exactly", "qty": "1", "level": "must", "norm": "EN 16890"},
+        {"name": "Fitted sheet", "qty": "2–3", "level": "must"},
+        {"name": "Baby sleeping bag (instead of a duvet)", "qty": "2", "level": "must", "why": "Match the thickness (TOG) to the room temperature. A sleeping bag can't slide over the face like a duvet."},
+        {"name": "Muslin or cotton cloths", "qty": "8–10", "level": "must", "why": "Changing mat, bib, sun shade, towel. The most versatile item on the list."},
+        {"name": "Swaddle nest / baby wrap", "qty": "1", "level": "nice"}
+      ]
+    },
+    {
+      "title": "Care and bath",
+      "items": [
+        {"name": "Disposable nappies, size 1", "qty": "1–2 packs", "level": "must", "why": "Don't stockpile. Newborns move to size 2 quickly and a brand may not suit you."},
+        {"name": "Cotton pads, gauze and warm water, or water-based wipes", "qty": "plenty", "level": "must"},
+        {"name": "Zinc oxide nappy rash cream", "qty": "1", "level": "must"},
+        {"name": "Digital thermometer", "qty": "1", "level": "must"},
+        {"name": "Nasal aspirator and saline ampoules", "qty": "1 + pack", "level": "must"},
+        {"name": "Round-tipped scissors or nail file", "qty": "1", "level": "must"},
+        {"name": "Baby bath with stand or insert", "qty": "1", "level": "must"},
+        {"name": "Hooded towel", "qty": "2", "level": "must"},
+        {"name": "Bath thermometer", "qty": "1", "level": "nice", "why": "Bath water about 37°C. Your elbow works too."},
+        {"name": "Changing mat with raised sides or a changing top for a dresser", "qty": "1", "level": "nice", "norm": "EN 12221"}
+      ]
+    },
+    {
+      "title": "Feeding",
+      "items": [
+        {"name": "Nursing pads", "qty": "1 pack", "level": "situational", "why": "If breastfeeding."},
+        {"name": "Nursing bra", "qty": "2", "level": "situational"},
+        {"name": "Nursing pillow", "qty": "1", "level": "nice"},
+        {"name": "Breast pump", "qty": "1", "level": "situational", "why": "Buy or rent only when you need it. A lactation consultant can help pick the type."},
+        {"name": "Bottles 150–250 ml", "qty": "4–6", "level": "situational", "why": "For formula feeding. If breastfeeding, 1–2 as backup are enough."},
+        {"name": "Infant formula", "qty": "—", "level": "situational", "why": "Choose after talking to a midwife or paediatrician."}
+      ]
+    },
+    {
+      "title": "Stroller and travel",
+      "items": [
+        {"name": "Infant car seat 0–13 kg or 40–87 cm", "qty": "1", "level": "must", "norm": "ECE R129 (i-Size)", "why": "Needed on the way home from hospital. Don't buy a used one with unknown history: after a crash it loses its protective properties."},
+        {"name": "Stroller with a (deep) carrycot", "qty": "1", "level": "must", "norm": "EN 1888", "why": "Babies up to about 6 months should lie flat."},
+        {"name": "Ergonomic carrier or wrap", "qty": "1", "level": "nice", "norm": "EN 13209", "why": "Legs in an M position, face visible, close enough to kiss the top of the head."},
+        {"name": "Changing bag for the stroller", "qty": "1", "level": "nice"}
+      ]
+    },
+    {
+      "title": "Hospital bag",
+      "items": [
+        {"name": "Documents: ID, pregnancy record, test results, blood type", "qty": "", "level": "must"},
+        {"name": "Going-home outfit and hat", "qty": "1 set", "level": "must"},
+        {"name": "Size 1 nappies and wipes", "qty": "a dozen or so", "level": "must"},
+        {"name": "Maternity pads and mesh underwear", "qty": "plenty", "level": "must"},
+        {"name": "Button-front nursing nightgowns", "qty": "2", "level": "must"},
+        {"name": "Charger with a long cable", "qty": "1", "level": "nice"}
+      ]
+    }
+  ],
+  "avoid": {
+    "title": "Don't buy",
+    "items": [
+      {"name": "Cot bumpers", "why": "They increase the risk of suffocation and SIDS. Paediatricians clearly advise against them."},
+      {"name": "Pillow and duvet for a baby", "why": "Until 12 months the cot should be empty. Use a sleeping bag instead of a duvet."},
+      {"name": "Sleep wedges and positioners", "why": "They don't reduce SIDS risk and a baby can press their face into them."},
+      {"name": "Baby walker", "why": "Frequent injuries (falls down stairs) and no benefit for learning to walk. A sturdy push walker is better."},
+      {"name": "Shoes for a baby who can't walk yet", "why": "Socks or warm stroller booties are enough."},
+      {"name": "Wipe warmers and other single-purpose gadgets", "why": "Rarely useful, take up space."},
+      {"name": "Used car seat with unknown history", "why": "Crash damage is often invisible."}
+    ]
+  }
+}

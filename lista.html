@@ -46,11 +46,11 @@ ul.items{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
 </head>
 <body>
 <div class="wrap">
-  <div class="top"><a class="brand" href="./"><i></i>Wyprawka</a><a class="back" href="./">← Start</a></div>
-  <nav class="tabs chips" id="tabs" aria-label="Listy">
-    <a class="chip" href="#wyprawka" data-id="wyprawka">Wyprawka</a>
-    <a class="chip" href="#sen" data-id="sen">Pokój i sen</a>
-    <a class="chip" href="#zabawki" data-id="zabawki">Zabawki</a>
+  <div class="top"><a class="brand" href="./"><i></i>Wyprawka</a></div>
+  <nav class="tabs chips" id="tabs" data-i18n-attr="aria-label:l.lists">
+    <a class="chip" href="#wyprawka" data-id="wyprawka" data-i18n="l.tab.bag">Wyprawka</a>
+    <a class="chip" href="#sen" data-id="sen" data-i18n="l.tab.sleep">Pokój i sen</a>
+    <a class="chip" href="#zabawki" data-id="zabawki" data-i18n="l.tab.toys">Zabawki</a>
   </nav>
   <div class="head">
     <h1 id="title">…</h1>
@@ -59,15 +59,26 @@ ul.items{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
     <div class="chips" id="filters"></div>
   </div>
   <div id="list" class="wrap" style="max-width:none"></div>
-  <footer>Treści mają charakter informacyjny i nie zastępują porady pediatry ani położnej.</footer>
+  <footer data-i18n="disclaimer">Treści mają charakter informacyjny i nie zastępują porady pediatry ani położnej.</footer>
 </div>
+<script src="assets/i18n.js"></script>
+<script>
+I18N.add({
+  pl:{"l.lists":"Listy","l.tab.bag":"Wyprawka","l.tab.sleep":"Pokój i sen","l.tab.toys":"Zabawki","l.must":"Niezbędne","l.nice":"Przydatne","l.situational":"Wg sytuacji",
+    "l.f.all":"Wszystko","l.f.todo":"Do kupienia","l.now":"Teraz","l.norm":"Norma","l.err":"Nie udało się wczytać listy","l.err.d":"Otwórz aplikację z adresu serwera (nie z pliku) albo odśwież stronę."},
+  en:{"l.lists":"Lists","l.tab.bag":"Essentials","l.tab.sleep":"Room and sleep","l.tab.toys":"Toys","l.must":"Essential","l.nice":"Useful","l.situational":"Depends",
+    "l.f.all":"All","l.f.todo":"To buy","l.now":"Now","l.norm":"Standard","l.err":"Couldn't load the list","l.err.d":"Open the app from a server address (not a local file) or refresh the page."},
+  uk:{"l.lists":"Списки","l.tab.bag":"Посаг","l.tab.sleep":"Кімната і сон","l.tab.toys":"Іграшки","l.must":"Необхідне","l.nice":"Корисне","l.situational":"За ситуацією",
+    "l.f.all":"Усе","l.f.todo":"Купити","l.now":"Зараз","l.norm":"Стандарт","l.err":"Не вдалося завантажити список","l.err.d":"Відкрийте застосунок з адреси сервера (не з файлу) або оновіть сторінку."}
+});
+</script>
 <script src="assets/store.js"></script>
 <script src="assets/nav.js" data-base="./"></script>
 <script>
 (()=>{
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const LV={must:"Niezbędne",nice:"Przydatne",situational:"Wg sytuacji"};
+const t=I18N.t, LV={must:t("l.must"),nice:t("l.nice"),situational:t("l.situational")};
 let D=null, id=null, filter="all";
 const key=(si,ii)=>`${si}.${ii}`;
 
@@ -75,8 +86,8 @@ async function load(){
   id=(location.hash||"#wyprawka").slice(1);
   if(!["wyprawka","sen","zabawki"].includes(id))id="wyprawka";
   document.querySelectorAll("#tabs a").forEach(a=>a.setAttribute("aria-pressed",a.dataset.id===id));
-  try{D=await (await fetch(`data/${id}.json`)).json()}
-  catch(e){$("#title").textContent="Nie udało się wczytać listy";$("#intro").textContent="Otwórz aplikację z adresu serwera (nie z pliku) albo odśwież stronę.";return}
+  try{D=await (await fetch(I18N.dataPath("",id))).json()}
+  catch(e){$("#title").textContent=t("l.err");$("#intro").textContent=t("l.err.d");return}
   document.title=`${D.title} · Wyprawka`;
   $("#title").textContent=D.title;$("#intro").textContent=D.intro;
   render();
@@ -88,7 +99,7 @@ function progress(){
   $("#pbar").style.width=(all?done/all*100:0)+"%";$("#ptxt").textContent=`${done} / ${all}`;
 }
 function render(){
-  $("#filters").innerHTML=[["all","Wszystko"],["must","Niezbędne"],["todo","Do kupienia"]].map(([v,n])=>`<button type="button" class="chip" aria-pressed="${v===filter}" data-f="${v}">${n}</button>`).join("");
+  $("#filters").innerHTML=[["all",t("l.f.all")],["must",t("l.must")],["todo",t("l.f.todo")]].map(([v,n])=>`<button type="button" class="chip" aria-pressed="${v===filter}" data-f="${v}">${n}</button>`).join("");
   $("#filters").querySelectorAll("button").forEach(b=>b.onclick=()=>{filter=b.dataset.f;render()});
   const c=Store.checks(id), kid=Store.kid(), age=kid?Store.ageMonths(kid):null;
   let html=D.sections.map((s,si)=>{
@@ -97,7 +108,7 @@ function render(){
       filter==="all"||it.kind==="rule"||(filter==="must"&&it.level==="must")||(filter==="todo"&&!c[k]));
     if(!items.length)return"";
     const buy=s.items.filter(i=>i.kind!=="rule"), bought=s.items.filter((i,ii)=>i.kind!=="rule"&&c[key(si,ii)]).length;
-    return `<section class="card"${isNow?" data-now":""}><div class="sec-h"><h2>${esc(s.title)}${isNow?`<span class="now">Teraz</span>`:""}</h2>${buy.length?`<span class="cnt">${bought}/${buy.length}</span>`:""}</div>
+    return `<section class="card"${isNow?" data-now":""}><div class="sec-h"><h2>${esc(s.title)}${isNow?`<span class="now">${t("l.now")}</span>`:""}</h2>${buy.length?`<span class="cnt">${bought}/${buy.length}</span>`:""}</div>
       ${s.tip?`<p class="tip">${esc(s.tip)}</p>`:""}
       <ul class="items">${items.map(({it,k})=>{
         const rule=it.kind==="rule", done=!!c[k];
@@ -105,7 +116,7 @@ function render(){
         <div><div class="top-line"><label class="nm"${rule?"":` for="c-${k}"`}>${esc(it.name)}</label>${it.qty?`<span class="qty">${esc(it.qty)}</span>`:""}${!rule&&it.level?`<span class="lvl ${it.level}">${LV[it.level]}</span>`:""}</div>
         ${it.why?`<p class="why">${esc(it.why)}</p>`:""}
         ${it.criteria?`<ul class="crit">${it.criteria.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:""}
-        ${it.norm?`<div class="norm">Norma: ${esc(it.norm)}</div>`:""}</div></li>`}).join("")}</ul></section>`;
+        ${it.norm?`<div class="norm">${t("l.norm")}: ${esc(it.norm)}</div>`:""}</div></li>`}).join("")}</ul></section>`;
   }).join("");
   if(D.avoid)html+=`<section class="card avoid"><h2>${esc(D.avoid.title)}</h2><ul class="items">${D.avoid.items.map(a=>`<li class="it"><div><div class="nm">${esc(a.name)}</div><p class="why">${esc(a.why)}</p></div></li>`).join("")}</ul></section>`;
   $("#list").innerHTML=html;

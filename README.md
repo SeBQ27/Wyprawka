@@ -32,6 +32,13 @@ Otwieranie `index.html` bezpośrednio z pliku nie zadziała (fetch JSON i geolok
 
 **GitHub Pages:** Settings → Pages → Deploy from branch → `main` / root.
 
+## Języki (PL / EN / UA)
+
+Przełącznik w nagłówku każdej strony, wybór zapamiętany w `localStorage` (`wyprawka.lang`); domyślnie język przeglądarki, a gdy nie jest polski ani ukraiński — angielski.
+
+- Teksty interfejsu: `assets/i18n.js` (wspólne), słowniki na początku `index.html` i `lista.html`, moduł Pogoda w `pogoda/lang.js`.
+- Listy: `data/*.json` (PL), `data/en/*.json`, `data/uk/*.json`. **Kolejność sekcji i pozycji musi być identyczna we wszystkich językach** — odhaczenia są zapisywane po indeksach i przenoszą się między językami.
+
 ## Model danych listy (`data/*.json`)
 
 ```jsonc
