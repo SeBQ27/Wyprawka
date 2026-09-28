@@ -3,43 +3,43 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#1D3346">
+<meta name="theme-color" content="#FBF7F2">
 <title>Wyprawka · lista</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap">
 <link rel="stylesheet" href="assets/style.css">
 <style>
 .head{display:flex;flex-direction:column;gap:8px}
 .head p{margin:0}
 .prog{display:flex;align-items:center;gap:10px;font-size:14px;font-variant-numeric:tabular-nums}
 .prog .bar{flex:1;height:8px;border-radius:9px;background:var(--surface-2);overflow:hidden}
-.prog .bar span{display:block;height:100%;background:var(--ok);transition:width .25s}
-.tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:2px}
+.prog .bar span{display:block;height:100%;background:linear-gradient(90deg,#FF7A59,#FF4F82);border-radius:9px;transition:width .25s}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
 .tabs a{flex:0 0 auto;text-decoration:none;border:1px solid var(--line);background:var(--surface)}
 section.card{display:flex;flex-direction:column;gap:8px}
 .sec-h{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
 .sec-h .cnt{font-size:13px;color:var(--ink-2);font-variant-numeric:tabular-nums;white-space:nowrap}
-.now{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;background:var(--accent);color:var(--accent-ink);padding:2px 8px;border-radius:6px;margin-left:8px;vertical-align:middle}
+.now{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;background:var(--accent);color:var(--accent-ink);padding:3px 9px;border-radius:999px;margin-left:8px;vertical-align:middle}
 .tip{font-size:14px;color:var(--ink-2);margin:0}
 ul.items{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
-.it{display:grid;grid-template-columns:28px 1fr;gap:10px;padding:10px 0;border-top:1px solid var(--line)}
+.it{display:grid;grid-template-columns:28px 1fr;gap:10px;padding:12px 0;border-top:1px dashed var(--line)}
 .it:first-child{border-top:none}
-.it input{width:22px;height:22px;margin:2px 0 0;accent-color:var(--ok)}
-.it .rule{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:var(--surface-2);font-size:13px;font-weight:700;color:var(--ink-2)}
+.it input{width:22px;height:22px;margin:2px 0 0;accent-color:var(--accent)}
+.it .rule{width:22px;height:22px;border-radius:8px;display:grid;place-items:center;background:var(--t-sun);font-size:13px;font-weight:800;color:var(--t-sun-ink)}
 .it .top-line{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:baseline}
 .it .nm{font-weight:700}
 .it.done .nm{text-decoration:line-through;color:var(--ink-2)}
 .qty{font-size:13px;color:var(--ink-2);font-variant-numeric:tabular-nums}
-.lvl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:2px 6px;border-radius:6px}
-.lvl.must{background:color-mix(in srgb,var(--ok) 18%,transparent);color:var(--ok)}
+.lvl{font-size:11px;font-weight:700;letter-spacing:.02em;padding:2px 8px;border-radius:999px}
+.lvl.must{background:var(--t-coral);color:var(--t-coral-ink)}
 .lvl.nice{background:var(--surface-2);color:var(--ink-2)}
-.lvl.situational{background:color-mix(in srgb,var(--cold) 16%,transparent);color:var(--cold)}
+.lvl.situational{background:var(--t-sky);color:var(--t-sky-ink)}
 .why{font-size:14px;color:var(--ink-2);margin:4px 0 0}
 .norm{font-size:12px;font-weight:700;color:var(--ink-2);margin-top:4px;font-variant-numeric:tabular-nums}
 .crit{margin:6px 0 0;padding-left:18px;font-size:14px;color:var(--ink-2);display:flex;flex-direction:column;gap:2px}
-.avoid{border-color:color-mix(in srgb,var(--bad) 40%,var(--line))}
+.avoid{background:color-mix(in srgb,var(--bad) 7%,var(--surface));border-color:color-mix(in srgb,var(--bad) 30%,var(--line))}
 .avoid h2{color:var(--bad)}
 .avoid .it{grid-template-columns:1fr}
 </style>
@@ -62,6 +62,7 @@ ul.items{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
   <footer>Treści mają charakter informacyjny i nie zastępują porady pediatry ani położnej.</footer>
 </div>
 <script src="assets/store.js"></script>
+<script src="assets/nav.js" data-base="./"></script>
 <script>
 (()=>{
 const $=s=>document.querySelector(s);
