@@ -42,6 +42,14 @@ ul.items{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
 .avoid{background:color-mix(in srgb,var(--bad) 7%,var(--surface));border-color:color-mix(in srgb,var(--bad) 30%,var(--line))}
 .avoid h2{color:var(--bad)}
 .avoid .it{grid-template-columns:1fr}
+.shops{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:10px}
+.shop{display:flex;flex-direction:column;gap:6px;padding:8px;border-radius:14px;background:var(--surface-2);text-decoration:none;min-width:0;transition:transform .12s}
+.shop:active{transform:scale(.97)}
+.shop .th{height:56px;border-radius:10px;display:grid;place-items:center;overflow:hidden;background:var(--c);color:var(--i);font-weight:800;font-size:18px}
+.shop .th img{width:100%;height:100%;object-fit:contain;background:#fff}
+.shop b{font-size:12px;line-height:1.2;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.shop small{font-size:11px;color:var(--ink-2);line-height:1.25;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.aff{font-size:12px;color:var(--ink-2);margin:0}
 </style>
 </head>
 <body>
@@ -57,6 +65,7 @@ ul.items{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
     <p class="muted" id="intro"></p>
     <div class="prog"><div class="bar"><span id="pbar" style="width:0"></span></div><span id="ptxt">0 / 0</span></div>
     <div class="chips" id="filters"></div>
+    <p class="aff" id="aff" hidden></p>
   </div>
   <div id="list" class="wrap" style="max-width:none"></div>
   <footer data-i18n="disclaimer">Treści mają charakter informacyjny i nie zastępują porady pediatry ani położnej.</footer>
@@ -65,13 +74,14 @@ ul.items{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
 <script>
 I18N.add({
   pl:{"l.lists":"Listy","l.tab.bag":"Wyprawka","l.tab.sleep":"Pokój i sen","l.tab.toys":"Zabawki","l.must":"Niezbędne","l.nice":"Przydatne","l.situational":"Wg sytuacji",
-    "l.f.all":"Wszystko","l.f.todo":"Do kupienia","l.now":"Teraz","l.norm":"Norma","l.err":"Nie udało się wczytać listy","l.err.d":"Otwórz aplikację z adresu serwera (nie z pliku) albo odśwież stronę."},
+    "l.f.all":"Wszystko","l.f.todo":"Do kupienia","l.now":"Teraz","l.norm":"Norma","l.err":"Nie udało się wczytać listy","l.err.d":"Otwórz aplikację z adresu serwera (nie z pliku) albo odśwież stronę.","l.shop":"Zobacz oferty","l.shops":"Gdzie kupić","l.aff":"Linki do sklepów mogą być linkami partnerskimi: przy zakupie dostajemy prowizję, cena się nie zmienia."},
   en:{"l.lists":"Lists","l.tab.bag":"Essentials","l.tab.sleep":"Room and sleep","l.tab.toys":"Toys","l.must":"Essential","l.nice":"Useful","l.situational":"Depends",
-    "l.f.all":"All","l.f.todo":"To buy","l.now":"Now","l.norm":"Standard","l.err":"Couldn't load the list","l.err.d":"Open the app from a server address (not a local file) or refresh the page."},
+    "l.f.all":"All","l.f.todo":"To buy","l.now":"Now","l.norm":"Standard","l.err":"Couldn't load the list","l.err.d":"Open the app from a server address (not a local file) or refresh the page.","l.shop":"See offers","l.shops":"Where to buy","l.aff":"Shop links may be affiliate links: we earn a commission on purchases at no extra cost to you."},
   uk:{"l.lists":"Списки","l.tab.bag":"Посаг","l.tab.sleep":"Кімната і сон","l.tab.toys":"Іграшки","l.must":"Необхідне","l.nice":"Корисне","l.situational":"За ситуацією",
-    "l.f.all":"Усе","l.f.todo":"Купити","l.now":"Зараз","l.norm":"Стандарт","l.err":"Не вдалося завантажити список","l.err.d":"Відкрийте застосунок з адреси сервера (не з файлу) або оновіть сторінку."}
+    "l.f.all":"Усе","l.f.todo":"Купити","l.now":"Зараз","l.norm":"Стандарт","l.err":"Не вдалося завантажити список","l.err.d":"Відкрийте застосунок з адреси сервера (не з файлу) або оновіть сторінку.","l.shop":"Переглянути","l.shops":"Де купити","l.aff":"Посилання на магазини можуть бути партнерськими: ми отримуємо комісію з покупки, ціна для вас не змінюється."}
 });
 </script>
+<script src="assets/shops.js"></script>
 <script src="assets/store.js"></script>
 <script src="assets/nav.js" data-base="./"></script>
 <script>
@@ -79,7 +89,7 @@ I18N.add({
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const t=I18N.t, LV={must:t("l.must"),nice:t("l.nice"),situational:t("l.situational")};
-let D=null, id=null, filter="all";
+let D=null, id=null, filter="all", SH=null;
 const key=(si,ii)=>`${si}.${ii}`;
 
 async function load(){
@@ -88,10 +98,20 @@ async function load(){
   document.querySelectorAll("#tabs a").forEach(a=>a.setAttribute("aria-pressed",a.dataset.id===id));
   try{D=await (await fetch(I18N.dataPath("",id))).json()}
   catch(e){$("#title").textContent=t("l.err");$("#intro").textContent=t("l.err.d");return}
+  if(!SH)try{SH=await (await fetch("data/shop.json")).json()}catch(e){SH={}}
   document.title=`${D.title} · Wyprawka`;
   $("#title").textContent=D.title;$("#intro").textContent=D.intro;
   render();
   const n=document.querySelector("[data-now]");if(n)n.scrollIntoView({block:"start"});
+}
+function shops(k){
+  const e=SH&&SH[id]&&SH[id][k];if(!e||!window.SHOPS)return"";
+  const P=e.products||[];
+  return `<nav class="shops" aria-label="${esc(t("l.shops"))}">${SHOPS.list.map(s=>{
+    const p=P.find(x=>x.store===s.id), url=SHOPS.link(s.id,p?p.url:s.search(e.q));
+    return `<a class="shop" href="${esc(url)}" target="_blank" rel="sponsored nofollow noopener" style="--c:${s.color};--i:${s.ink}">
+      <span class="th" aria-hidden="true">${p&&p.img?`<img src="${esc(p.img)}" alt="" loading="lazy">`:esc(s.name[0])}</span>
+      <span><b>${esc(s.name)}</b><small>${p?esc(p.title)+(p.price?` · ${esc(p.price)}`:""):t("l.shop")}</small></span></a>`}).join("")}</nav>`;
 }
 function progress(){
   const c=Store.checks(id);let all=0,done=0;
@@ -116,9 +136,10 @@ function render(){
         <div><div class="top-line"><label class="nm"${rule?"":` for="c-${k}"`}>${esc(it.name)}</label>${it.qty?`<span class="qty">${esc(it.qty)}</span>`:""}${!rule&&it.level?`<span class="lvl ${it.level}">${LV[it.level]}</span>`:""}</div>
         ${it.why?`<p class="why">${esc(it.why)}</p>`:""}
         ${it.criteria?`<ul class="crit">${it.criteria.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:""}
-        ${it.norm?`<div class="norm">${t("l.norm")}: ${esc(it.norm)}</div>`:""}</div></li>`}).join("")}</ul></section>`;
+        ${it.norm?`<div class="norm">${t("l.norm")}: ${esc(it.norm)}</div>`:""}${!rule&&it.level==="must"?shops(k):""}</div></li>`}).join("")}</ul></section>`;
   }).join("");
   if(D.avoid)html+=`<section class="card avoid"><h2>${esc(D.avoid.title)}</h2><ul class="items">${D.avoid.items.map(a=>`<li class="it"><div><div class="nm">${esc(a.name)}</div><p class="why">${esc(a.why)}</p></div></li>`).join("")}</ul></section>`;
+  $("#aff").hidden=!(SH&&SH[id]);$("#aff").textContent=t("l.aff");
   $("#list").innerHTML=html;
   $("#list").querySelectorAll("input[data-k]").forEach(x=>x.onchange=()=>{Store.setCheck(id,x.dataset.k,x.checked);x.closest(".it").classList.toggle("done",x.checked);progress();
     const sec=x.closest("section"),cnt=sec.querySelector(".cnt");if(cnt){const t=sec.querySelectorAll("input[data-k]"),d=[...t].filter(i=>i.checked).length;cnt.textContent=`${d}/${cnt.textContent.split("/")[1]}`}});

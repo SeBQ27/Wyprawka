@@ -39,6 +39,14 @@ Przełącznik w nagłówku każdej strony, wybór zapamiętany w `localStorage` 
 - Teksty interfejsu: `assets/i18n.js` (wspólne), słowniki na początku `index.html` i `lista.html`, moduł Pogoda w `pogoda/lang.js`.
 - Listy: `data/*.json` (PL), `data/en/*.json`, `data/uk/*.json`. **Kolejność sekcji i pozycji musi być identyczna we wszystkich językach** — odhaczenia są zapisywane po indeksach i przenoszą się między językami.
 
+## Kafelki sklepów (Allegro, Amazon.pl, Smyk)
+
+Przy każdej pozycji „Niezbędne” trzy kafelki. Konfiguracja:
+
+- `assets/shops.js` — sklepy, adresy wyszukiwania, identyfikator partnerski Amazon (`amazonTag`) i funkcja `link()` do opakowania linków partnerskich (np. Allegro).
+- `data/shop.json` — fraza wyszukiwania `q` dla każdej pozycji (klucz `sekcja.pozycja`). Żeby pokazać konkretny produkt z miniaturką zamiast wyszukiwania, dodaj `products: [{"store": "allegro", "title": "…", "url": "…", "img": "…", "price": "…"}]`.
+- Wszystkie linki mają `rel="sponsored nofollow"`, a nad listą jest informacja o linkach partnerskich.
+
 ## Model danych listy (`data/*.json`)
 
 ```jsonc
