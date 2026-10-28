@@ -39,14 +39,25 @@ Przełącznik w nagłówku każdej strony, wybór zapamiętany w `localStorage` 
 - Teksty interfejsu: `assets/i18n.js` (wspólne), słowniki na początku `index.html` i `lista.html`, moduł Pogoda w `pogoda/lang.js`.
 - Listy: `data/*.json` (PL), `data/en/*.json`, `data/uk/*.json`. **Kolejność sekcji i pozycji musi być identyczna we wszystkich językach** — odhaczenia są zapisywane po indeksach i przenoszą się między językami.
 
-## Kafelki sklepów (Allegro, Amazon.pl, Smyk)
+## Kafelki sklepów (Allegro, Amazon.pl, Smyk, AliExpress)
 
-Przy każdej pozycji „Niezbędne” trzy kafelki. Konfiguracja:
+Kafelki pokazują się przy każdej pozycji, która ma wpis w `data/shop.json`. Konfiguracja:
 
-- `assets/shops.js` — sklepy, adresy wyszukiwania, identyfikator partnerski Amazon (`amazonTag`) i funkcja `link()` do opakowania linków partnerskich (np. Allegro).
-- `data/shop.json` — fraza wyszukiwania `q` dla każdej pozycji (klucz `sekcja.pozycja`). Żeby pokazać konkretny produkt z miniaturką zamiast wyszukiwania, dodaj `products: [{"store": "allegro", "title": "…", "url": "…", "img": "…", "price": "…"}]`.
+- `assets/shops.js` — sklepy, adresy wyszukiwania, identyfikator partnerski Amazon (`amazonTag`), opcjonalny szablon deep linku AliExpress (`aliDeepLink`) i funkcja `link()` do opakowania linków partnerskich.
+- `data/shop.json` — fraza wyszukiwania `q` dla każdej pozycji (klucz `sekcja.pozycja`). Żeby pokazać konkretny produkt z miniaturką zamiast wyszukiwania, dodaj `products: [{"store": "allegro", "title": "…", "url": "…", "img": "…", "price": "…"}]` (`"affiliate": true`, jeśli `url` już jest linkiem partnerskim).
 - Wszystkie linki mają `rel="sponsored nofollow"`, a nad listą jest informacja o linkach partnerskich.
 
+### AliExpress (opt-in)
+
+Kafelek AliExpress pojawia się tylko przy pozycjach z polem `ali`:
+
+```json
+"1.4": {"q": "pieluszki muślinowe 70x70", "ali": {"q": "muslin swaddle blanket 70x70 cotton", "url": ""}}
+```
+
+- `ali.q` — fraza po angielsku (wyszukiwarka AliExpress działa na niej lepiej niż na polskiej).
+- `ali.url` — **tu wklej link partnerski** z AliExpress Portals (Link Generator / Product Promotion → `https://s.click.aliexpress.com/e/…`). Pusty = link do wyszukiwania na pl.aliexpress.com (bez prowizji, chyba że ustawisz `aliDeepLink`).
+- Celowo **bez** AliExpress: łóżeczko, dostawka, materac, śpiworek, fotelik, wózek, termometr lekarski, aspirator, kosmetyki, pieluchy i zabawki 0–3 lat. To pozycje z normami PN-EN / wyrobem medycznym, gdzie podróbki CE z marketplace'ów są realnym ryzykiem — i reputacyjnym, i prawnym (odpowiedzialność za polecenie).
 ## Model danych listy (`data/*.json`)
 
 ```jsonc

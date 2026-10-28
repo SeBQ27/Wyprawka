@@ -12,7 +12,9 @@
 - [ ] Walidacja progów temperatur z położną/pediatrą, podpis eksperta w aplikacji
 
 ## v0.3 — monetyzacja
-- [ ] Linki afiliacyjne przy pozycjach list (pole `offers` w JSON: sklep, url, cena, data sprawdzenia)
+- [x] Kafelki sklepów (Allegro, Amazon.pl, Smyk) + AliExpress opt-in z miejscem na link partnerski (`ali.url`)
+- [ ] Wkleić linki partnerskie AliExpress Portals do `data/shop.json` i Amazon `amazonTag`
+- [ ] Data sprawdzenia ceny przy produktach (`products[].checked`)
 - [ ] Filtr budżetu: „minimum”, „standard”, „komfort” jako gotowe warianty wyprawki
 - [ ] Eksport listy do udostępnienia (partner, dziadkowie, lista prezentów)
 
